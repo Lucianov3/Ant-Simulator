@@ -1,0 +1,27 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Larvae_Script : MonoBehaviour
+{
+    public static bool DontSpawnAtStart;
+
+    private IEnumerator Bruht()
+    {
+        yield return new WaitForSeconds(5f);
+        GameObject temp = GameManager.Ants.Dequeue();
+        temp.SetActive(true);
+        temp.name = "puff";
+        temp.transform.SetPositionAndRotation(this.gameObject.transform.position + new Vector3(0, 0.5f, 0), Quaternion.Euler(0f, 0f, 0f));
+        KI_Rigina_formica.LarvaeQ.Enqueue(this.gameObject);
+        this.gameObject.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        if (DontSpawnAtStart)
+        {
+            StartCoroutine(Bruht());
+        }
+    }
+}

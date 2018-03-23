@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 33966378934755180}
   - component: {fileID: 135366253193817936}
   - component: {fileID: 23836800112349098}
+  - component: {fileID: 114617799671517102}
   m_Layer: 0
   m_Name: regina formica
   m_TagString: Untagged
@@ -258,7 +259,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1644860638894060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.91, y: -0.42, z: 0}
+  m_LocalPosition: {x: -5.91, y: -0.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4136357789046084}
@@ -667,6 +668,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1644860638894060}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114617799671517102
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1644860638894060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c31a964b208ab024b899ff78426623e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Larvae: {fileID: 0}
 --- !u!135 &135366253193817936
 SphereCollider:
   m_ObjectHideFlags: 1

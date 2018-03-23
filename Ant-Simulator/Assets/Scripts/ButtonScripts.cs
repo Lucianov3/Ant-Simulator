@@ -8,6 +8,11 @@ public class ButtonScripts : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    public void switchCameras()
+    {
+        GameManager.SwitchCamera();
+    }
+
     public void ExitScene()
     {
         Debug.Log("Cya");

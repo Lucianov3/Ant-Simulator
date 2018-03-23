@@ -6,12 +6,11 @@ public class OverWorldCameraScript : MonoBehaviour
 {
     Camera camera;
     GameObject parent;
-    float distanceCameraToFloor;
-    public float maxDistanceCameraToFloor; 
-    public float minDistanceCameraToFloor;
-    public float cameraMovementSpeed;
-    public float cameraRotationSpeed;
-    public float zoomSpeed;
+    public float maxDistanceCameraToFloor = 10; 
+    public float minDistanceCameraToFloor = 1;
+    public float cameraMovementSpeed = 0.1f;
+    public float cameraRotationSpeed = 1;
+    public float zoomSpeed = 5;
     Vector3 cameraMovement;
     Vector3 cameraZoom;
     Vector3 tempMousePosition;
@@ -22,7 +21,6 @@ public class OverWorldCameraScript : MonoBehaviour
         camera = GetComponent<Camera>();
         parent = camera.transform.parent.gameObject;
         transform.position = new Vector3(0,maxDistanceCameraToFloor, -maxDistanceCameraToFloor);
-        distanceCameraToFloor = maxDistanceCameraToFloor;
 	}
 	
 	void Update ()

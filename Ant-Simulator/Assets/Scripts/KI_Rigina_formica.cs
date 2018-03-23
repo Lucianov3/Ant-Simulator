@@ -19,7 +19,7 @@ public class KI_Rigina_formica : MonoBehaviour
 
     public void SpawnLarva()
     {
-        if (GameManager.CurrentAnts <= GameManager.MaxAnts && LarvaeQ.Count >= 0)
+        if (GameManager.CurrentAnts <= GameManager.MaxAnts && LarvaeQ.Count > 0)
         {                                                                                              //Holt eine Larve aus der Queue und setzt sie
             GameObject temp = LarvaeQ.Dequeue();                                                       //Active
             Larvae_Script.DontSpawnAtStart = true;

@@ -42,7 +42,7 @@ public class UnderworldCameraScript : MonoBehaviour
         {
             cameraZoom += new Vector3(Input.GetAxis("Mouse ScrollWheel") * zoomSpeed, 0, 0);
         }
-        transform.Translate(cameraMovement.normalized * cameraMovementSpeed * transform.position.y);
+        transform.Translate(cameraMovement.normalized * cameraMovementSpeed * transform.position.x);
         transform.position += cameraZoom;
         if (transform.position.x < -maxDistanceCameraToFloor)
         {

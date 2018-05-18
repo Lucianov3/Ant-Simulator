@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public static int CurrentAnts;
 
     public static Queue<GameObject> Ants = new Queue<GameObject>();
-    
+
     public static GameObject overworldCamera;
     public static GameObject underworldCamera;
 
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     {
         antPool = GameObject.Find("AntPool");
         ant = GameObject.Find("operarius cibo formica");
-        if(antPool != null)
+        if (antPool != null)
         {
             for (int i = 0; i < MaxAnts; i++)
             {

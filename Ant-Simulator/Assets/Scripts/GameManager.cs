@@ -28,9 +28,13 @@ public class GameManager : MonoBehaviour
                 temp.gameObject.SetActive(false);
             }
         }
-        overworldCamera = GameObject.Find("Overworld Camera");
-        underworldCamera = GameObject.Find("Underworld Camera");
-        underworldCamera.SetActive(false);
+        if (GameObject.Find("Overworld Camera"))
+        {
+            overworldCamera = GameObject.Find("Overworld Camera");
+            underworldCamera = GameObject.Find("Underworld Camera");
+            underworldCamera.SetActive(false);
+
+        }
     }
 
     public static void SwitchCamera()

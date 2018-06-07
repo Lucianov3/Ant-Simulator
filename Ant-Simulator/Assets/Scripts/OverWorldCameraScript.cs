@@ -16,6 +16,8 @@ public class OverWorldCameraScript : MonoBehaviour
     Vector3 tempMousePosition;
     bool rightMouseButtonIsBeingPressed;
 
+    public bool MouseMovementEnabled = true;
+
     void Start ()
     {
         camera = GetComponent<Camera>();
@@ -45,19 +47,19 @@ public class OverWorldCameraScript : MonoBehaviour
             rightMouseButtonIsBeingPressed = false;
 
         }
-        if (Input.GetKey("w")&& !rightMouseButtonIsBeingPressed|| camera.ScreenToViewportPoint(Input.mousePosition).y >= 0.99f && !rightMouseButtonIsBeingPressed)
+        if (Input.GetKey("w")&& !rightMouseButtonIsBeingPressed|| camera.ScreenToViewportPoint(Input.mousePosition).y >= 0.99f && !rightMouseButtonIsBeingPressed && MouseMovementEnabled)
         {
             cameraMovement += Vector3.forward;
         }
-        if (Input.GetKey("s") && !rightMouseButtonIsBeingPressed || camera.ScreenToViewportPoint(Input.mousePosition).y <= 0.01f && !rightMouseButtonIsBeingPressed)
+        if (Input.GetKey("s") && !rightMouseButtonIsBeingPressed || camera.ScreenToViewportPoint(Input.mousePosition).y <= 0.01f && !rightMouseButtonIsBeingPressed && MouseMovementEnabled)
         {
             cameraMovement += -Vector3.forward;
         }
-        if (Input.GetKey("a") && !rightMouseButtonIsBeingPressed || camera.ScreenToViewportPoint(Input.mousePosition).x <= 0.01f && !rightMouseButtonIsBeingPressed)
+        if (Input.GetKey("a") && !rightMouseButtonIsBeingPressed || camera.ScreenToViewportPoint(Input.mousePosition).x <= 0.01f && !rightMouseButtonIsBeingPressed && MouseMovementEnabled)
         {
             cameraMovement += -Vector3.right;
         }
-        if (Input.GetKey("d") && !rightMouseButtonIsBeingPressed || camera.ScreenToViewportPoint(Input.mousePosition).x >= 0.99f && !rightMouseButtonIsBeingPressed)
+        if (Input.GetKey("d") && !rightMouseButtonIsBeingPressed || camera.ScreenToViewportPoint(Input.mousePosition).x >= 0.99f && !rightMouseButtonIsBeingPressed && MouseMovementEnabled)
         {
             cameraMovement += Vector3.right;
         }
@@ -65,8 +67,8 @@ public class OverWorldCameraScript : MonoBehaviour
         {
             cameraZoom += new Vector3(0, 0, Input.GetAxis("Mouse ScrollWheel") * ZoomSpeed);
         }
-        parent.transform.Translate(cameraMovement.normalized*CameraMovementSpeed*transform.position.y*Time.deltaTime);
-        transform.Translate(cameraZoom*Time.deltaTime,Space.Self);
+        parent.transform.Translate(cameraMovement.normalized*CameraMovementSpeed*transform.position.y*Time.unscaledDeltaTime);
+        transform.Translate(cameraZoom*Time.unscaledDeltaTime,Space.Self);
         if(transform.position.y > MaxDistanceCameraToFloor)
         {
             transform.position = new Vector3(transform.position.x, MaxDistanceCameraToFloor, transform.position.z);

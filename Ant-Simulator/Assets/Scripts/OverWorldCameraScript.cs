@@ -6,21 +6,23 @@ public class OverWorldCameraScript : MonoBehaviour
 {
     Camera camera;
     GameObject parent;
-    public float maxDistanceCameraToFloor = 10; 
-    public float minDistanceCameraToFloor = 1;
-    public float cameraMovementSpeed = 0.1f;
-    public float cameraRotationSpeed = 1;
-    public float zoomSpeed = 5;
+    public float MaxDistanceCameraToFloor = 10; 
+    public float MinDistanceCameraToFloor = 1;
+    public float CameraMovementSpeed = 0.1f;
+    public float CameraRotationSpeed = 1;
+    public float ZoomSpeed = 5;
     Vector3 cameraMovement;
     Vector3 cameraZoom;
     Vector3 tempMousePosition;
     bool rightMouseButtonIsBeingPressed;
 
+    public bool MouseMovementEnabled = true;
+
     void Start ()
     {
         camera = GetComponent<Camera>();
         parent = camera.transform.parent.gameObject;
-        transform.position = new Vector3(0,maxDistanceCameraToFloor, -maxDistanceCameraToFloor);
+        transform.position = new Vector3(0,MaxDistanceCameraToFloor, -MaxDistanceCameraToFloor);
 	}
 	
 	void Update ()
@@ -37,7 +39,7 @@ public class OverWorldCameraScript : MonoBehaviour
             if (tempMousePosition != camera.ScreenToViewportPoint(Input.mousePosition))
             {
                 float temp = tempMousePosition.x - camera.ScreenToViewportPoint(Input.mousePosition).x;
-                parent.transform.Rotate(new Vector3(0,1,0), temp * cameraRotationSpeed, Space.Self);
+                parent.transform.Rotate(new Vector3(0,1,0), temp * CameraRotationSpeed, Space.Self);
             }
         }
         if (Input.GetKeyUp(KeyCode.Mouse1))
@@ -45,35 +47,43 @@ public class OverWorldCameraScript : MonoBehaviour
             rightMouseButtonIsBeingPressed = false;
 
         }
-        if (Input.GetKey("w")&& !rightMouseButtonIsBeingPressed|| camera.ScreenToViewportPoint(Input.mousePosition).y >= 0.99f && !rightMouseButtonIsBeingPressed)
+        if (Input.GetKey("w")&& !rightMouseButtonIsBeingPressed|| camera.ScreenToViewportPoint(Input.mousePosition).y >= 0.99f && !rightMouseButtonIsBeingPressed && MouseMovementEnabled)
         {
             cameraMovement += Vector3.forward;
         }
-        if (Input.GetKey("s") && !rightMouseButtonIsBeingPressed || camera.ScreenToViewportPoint(Input.mousePosition).y <= 0.01f && !rightMouseButtonIsBeingPressed)
+        if (Input.GetKey("s") && !rightMouseButtonIsBeingPressed || camera.ScreenToViewportPoint(Input.mousePosition).y <= 0.01f && !rightMouseButtonIsBeingPressed && MouseMovementEnabled)
         {
             cameraMovement += -Vector3.forward;
         }
-        if (Input.GetKey("a") && !rightMouseButtonIsBeingPressed || camera.ScreenToViewportPoint(Input.mousePosition).x <= 0.01f && !rightMouseButtonIsBeingPressed)
+        if (Input.GetKey("a") && !rightMouseButtonIsBeingPressed || camera.ScreenToViewportPoint(Input.mousePosition).x <= 0.01f && !rightMouseButtonIsBeingPressed && MouseMovementEnabled)
         {
             cameraMovement += -Vector3.right;
         }
-        if (Input.GetKey("d") && !rightMouseButtonIsBeingPressed || camera.ScreenToViewportPoint(Input.mousePosition).x >= 0.99f && !rightMouseButtonIsBeingPressed)
+        if (Input.GetKey("d") && !rightMouseButtonIsBeingPressed || camera.ScreenToViewportPoint(Input.mousePosition).x >= 0.99f && !rightMouseButtonIsBeingPressed && MouseMovementEnabled)
         {
             cameraMovement += Vector3.right;
         }
         if (Input.GetAxis("Mouse ScrollWheel") != 0 && !rightMouseButtonIsBeingPressed)
         {
-            cameraZoom += new Vector3(0, -Input.GetAxis("Mouse ScrollWheel")*zoomSpeed, 0);
+            cameraZoom += new Vector3(0, 0, Input.GetAxis("Mouse ScrollWheel") * ZoomSpeed);
         }
-        parent.transform.Translate(cameraMovement.normalized*cameraMovementSpeed*transform.position.y);
-        transform.position += cameraZoom;
-        if(transform.position.y>maxDistanceCameraToFloor)
+        parent.transform.Translate(cameraMovement.normalized*CameraMovementSpeed*transform.position.y*Time.unscaledDeltaTime);
+        transform.Translate(cameraZoom*Time.unscaledDeltaTime,Space.Self);
+        if(transform.position.y > MaxDistanceCameraToFloor)
         {
-            transform.position = new Vector3(transform.position.x, maxDistanceCameraToFloor, transform.position.z);
+            transform.position = new Vector3(transform.position.x, MaxDistanceCameraToFloor, transform.position.z);
         }
-        if(transform.position.y < minDistanceCameraToFloor)
+        if (transform.localPosition.z < -MaxDistanceCameraToFloor)
         {
-            transform.position = new Vector3(transform.position.x, minDistanceCameraToFloor, transform.position.z);
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, -MaxDistanceCameraToFloor);
+        }
+        if (transform.position.y < MinDistanceCameraToFloor )
+        {
+            transform.position = new Vector3(transform.position.x, MinDistanceCameraToFloor, transform.position.z);
+        }
+        if (transform.localPosition.z > -MinDistanceCameraToFloor)
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, -MinDistanceCameraToFloor);
         }
     }
 }

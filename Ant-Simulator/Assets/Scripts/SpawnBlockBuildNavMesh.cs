@@ -7,7 +7,7 @@ public class SpawnBlockBuildNavMesh : MonoBehaviour
 {
     public GameObject DirtBlock;
     private NavMeshSurface surface;
-    private int temp;
+    private float temp;
     private bool isBuild;
     private NavMeshSurface[] surfaces;
 
@@ -15,7 +15,6 @@ public class SpawnBlockBuildNavMesh : MonoBehaviour
     {
         isBuild = true;
         temp = 10;
-        surfaces = new NavMeshSurface[10];
     }
 
 	void Update ()
@@ -25,14 +24,12 @@ public class SpawnBlockBuildNavMesh : MonoBehaviour
             for (int i = 0; i < 10; i++)
             {
                     GameObject DirtBlockClone = (GameObject)Instantiate(DirtBlock, new Vector3(0, 0, temp), Quaternion.Euler(0, 0, -90));
+                if (i == 9)
+                {
                     surface = DirtBlockClone.GetComponentInChildren<NavMeshSurface>();
-                    surfaces[i] = DirtBlockClone.GetComponentInChildren<NavMeshSurface>();
                     surface.BuildNavMesh();
-                    temp += 10;
-            }
-            for (int j = 0; j < surfaces.Length; j++)
-            {
-                surfaces[j].BuildNavMesh();
+                }
+                    temp += 5;
             }
             isBuild = false;
         }

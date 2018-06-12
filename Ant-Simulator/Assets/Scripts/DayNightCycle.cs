@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class DayNightCycle : MonoBehaviour
 {
-    private enum SpeedMode { Normal,Fast,Faster,UberFast}
-    [SerializeField] private Text clockText;
+    private enum SpeedMode { Normal,Fast,Faster,UberFast,Stop}
+    [SerializeField] private TextMeshPro clockText;
 
     private float timer;
     private Transform light;
@@ -26,10 +27,33 @@ public class DayNightCycle : MonoBehaviour
             minutes = 0;
             hasClockBeenSet = true;
         }
+            UpdateClockText();
+            UpdateSun();
     }
 
     private void Update()
     {
+        switch (Input.inputString)
+        {
+            case "1":
+                Speed = SpeedMode.Stop;
+                break;
+            case "2":
+                Speed = SpeedMode.Normal;
+                break;
+            case "3":
+                Speed = SpeedMode.Fast;
+                break;
+            case "4":
+                Speed = SpeedMode.Faster;
+                break;
+            case "5":
+                Speed = SpeedMode.UberFast;
+                break;
+            default:
+                break;
+        }
+
         switch (Speed)
         {
             case SpeedMode.Normal:
@@ -43,6 +67,9 @@ public class DayNightCycle : MonoBehaviour
                 break;
             case SpeedMode.UberFast:
                 Time.timeScale = 100;
+                break;
+            case SpeedMode.Stop:
+                Time.timeScale = 0;
                 break;
         }
         timer += Time.deltaTime;

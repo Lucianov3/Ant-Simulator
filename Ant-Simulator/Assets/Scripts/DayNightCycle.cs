@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DayNightCycle : MonoBehaviour
 {
-    private enum SpeedMode { Normal,Fast,Faster,UberFast}
+    private enum SpeedMode { Normal,Fast,Faster,UberFast,Stop}
     [SerializeField] private Text clockText;
 
     private float timer;
@@ -43,6 +43,9 @@ public class DayNightCycle : MonoBehaviour
                 break;
             case SpeedMode.UberFast:
                 Time.timeScale = 100;
+                break;
+            case SpeedMode.Stop:
+                Time.timeScale = 0;
                 break;
         }
         timer += Time.deltaTime;

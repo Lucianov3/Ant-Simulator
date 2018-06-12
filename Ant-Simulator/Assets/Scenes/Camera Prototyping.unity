@@ -9074,7 +9074,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: ab99668b39a68514facfcf4fb413b08b, type: 2}
+  - {fileID: 2100000, guid: a5797d1ef5b4c1240b6cf70b09c7bfbf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -21671,7 +21671,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: ab99668b39a68514facfcf4fb413b08b, type: 2}
+  - {fileID: 2100000, guid: a5797d1ef5b4c1240b6cf70b09c7bfbf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -25511,7 +25511,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: ab99668b39a68514facfcf4fb413b08b, type: 2}
+  - {fileID: 2100000, guid: a5797d1ef5b4c1240b6cf70b09c7bfbf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -25895,6 +25895,7 @@ MonoBehaviour:
   CameraMovementSpeed: 0.1
   CameraRotationSpeed: 1
   ZoomSpeed: 5
+  MouseMovementEnabled: 1
 --- !u!1 &1260430232
 GameObject:
   m_ObjectHideFlags: 0
@@ -36134,7 +36135,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: ab99668b39a68514facfcf4fb413b08b, type: 2}
+  - {fileID: 2100000, guid: a5797d1ef5b4c1240b6cf70b09c7bfbf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

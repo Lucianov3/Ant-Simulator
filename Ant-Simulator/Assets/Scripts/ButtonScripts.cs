@@ -18,4 +18,12 @@ public class ButtonScripts : MonoBehaviour
         Debug.Log("Cya");
         Application.Quit();
     }
+
+    public void optionsButton()
+    {
+    }
+
+    public void creditsButton()
+    {
+    }
 }

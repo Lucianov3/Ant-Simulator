@@ -12,6 +12,9 @@ public class UnderworldCameraScript : MonoBehaviour
     Vector3 cameraMovement;
     Vector3 cameraZoom;
 
+    public bool MouseMovementEnabled = true;
+
+
     void Start ()
     {
         camera = GetComponent<Camera>();
@@ -22,19 +25,19 @@ public class UnderworldCameraScript : MonoBehaviour
     {
         cameraMovement = new Vector3(0, 0, 0);
         cameraZoom = new Vector3(0, 0, 0);
-        if (Input.GetKey("w") || camera.ScreenToViewportPoint(Input.mousePosition).y >= 0.99f)
+        if (Input.GetKey("w") || camera.ScreenToViewportPoint(Input.mousePosition).y >= 0.99f && MouseMovementEnabled)
         {
             cameraMovement += -Vector3.up;
         }
-        if (Input.GetKey("s") || camera.ScreenToViewportPoint(Input.mousePosition).y <= 0.01f)
+        if (Input.GetKey("s") || camera.ScreenToViewportPoint(Input.mousePosition).y <= 0.01f && MouseMovementEnabled)
         {
             cameraMovement += Vector3.up;
         }
-        if (Input.GetKey("a") || camera.ScreenToViewportPoint(Input.mousePosition).x <= 0.01f)
+        if (Input.GetKey("a") || camera.ScreenToViewportPoint(Input.mousePosition).x <= 0.01f && MouseMovementEnabled)
         {
             cameraMovement += Vector3.right;
         }
-        if (Input.GetKey("d") || camera.ScreenToViewportPoint(Input.mousePosition).x >= 0.99f)
+        if (Input.GetKey("d") || camera.ScreenToViewportPoint(Input.mousePosition).x >= 0.99f && MouseMovementEnabled)
         {
             cameraMovement += -Vector3.right;
         }

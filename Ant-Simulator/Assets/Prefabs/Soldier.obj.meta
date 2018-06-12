@@ -1,16 +1,52 @@
 fileFormatVersion: 2
-guid: 5654af9f70031e24fa4abf4dc0c8fac7
+guid: 1f3692caf13cd8a4bb8fa2543b789eb8
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Cross
-    100002: //RootNode
-    400000: Cross
-    400002: //RootNode
-    2100000: initialShadingGroup1
-    2300000: Cross
-    3300000: Cross
-    4300000: Cross
+    100000: initialShadingGroup_pCube1
+    100002: initialShadingGroup_polySurface10
+    100004: initialShadingGroup_polySurface11
+    100006: initialShadingGroup_polySurface12
+    100008: initialShadingGroup_polySurface13
+    100010: initialShadingGroup_polySurface8
+    100012: initialShadingGroup_polySurface9
+    100014: //RootNode
+    400000: initialShadingGroup_pCube1
+    400002: initialShadingGroup_polySurface10
+    400004: initialShadingGroup_polySurface11
+    400006: initialShadingGroup_polySurface12
+    400008: initialShadingGroup_polySurface13
+    400010: initialShadingGroup_polySurface8
+    400012: initialShadingGroup_polySurface9
+    400014: //RootNode
+    2100000: initialShadingGroup_pCube1Mat
+    2100002: initialShadingGroup_polySurface10Mat
+    2100004: initialShadingGroup_polySurface11Mat
+    2100006: initialShadingGroup_polySurface12Mat
+    2100008: initialShadingGroup_polySurface13Mat
+    2100010: initialShadingGroup_polySurface8Mat
+    2100012: initialShadingGroup_polySurface9Mat
+    2300000: initialShadingGroup_pCube1
+    2300002: initialShadingGroup_polySurface10
+    2300004: initialShadingGroup_polySurface11
+    2300006: initialShadingGroup_polySurface12
+    2300008: initialShadingGroup_polySurface13
+    2300010: initialShadingGroup_polySurface8
+    2300012: initialShadingGroup_polySurface9
+    3300000: initialShadingGroup_pCube1
+    3300002: initialShadingGroup_polySurface10
+    3300004: initialShadingGroup_polySurface11
+    3300006: initialShadingGroup_polySurface12
+    3300008: initialShadingGroup_polySurface13
+    3300010: initialShadingGroup_polySurface8
+    3300012: initialShadingGroup_polySurface9
+    4300000: initialShadingGroup_pCube1
+    4300002: initialShadingGroup_polySurface10
+    4300004: initialShadingGroup_polySurface11
+    4300006: initialShadingGroup_polySurface12
+    4300008: initialShadingGroup_polySurface13
+    4300010: initialShadingGroup_polySurface8
+    4300012: initialShadingGroup_polySurface9
   externalObjects: {}
   materials:
     importMaterials: 1

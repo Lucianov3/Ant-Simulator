@@ -48,6 +48,8 @@ namespace AmeisenTypen
             Health = 100;
             Thirsty = 100;
         }
+
+        //Hier musst du die logik für die arbeiter einfügen.
     }
 
     public class Soldat : StandardAmeise

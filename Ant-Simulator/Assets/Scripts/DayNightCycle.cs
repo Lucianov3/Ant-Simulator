@@ -6,12 +6,7 @@ using TMPro;
 
 public class DayNightCycle : MonoBehaviour
 {
-<<<<<<< HEAD
-    private enum SpeedMode { Normal,Fast,Faster,UberFast,Stop}
-=======
     private enum SpeedMode { Normal, Fast, Faster, UberFast, Stop }
-
->>>>>>> b66dac52bde1e0a734e3bd21fbe06664d3c4d456
     [SerializeField] private TextMeshProUGUI clockText;
 
     private float timer;

@@ -10,7 +10,7 @@ public class KI_Rigina_formica : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < Larvae.transform.childCount; i++)                                  //Sucht Childs und Enqueue sie in die Queue
+        for (int i = 0; i < Larvae.transform.childCount; i++)                                          //Sucht Childs und Enqueue sie in die LarcaeQ
         {
             LarvaeQ.Enqueue(Larvae.transform.GetChild(i).gameObject);
             Larvae.transform.GetChild(i).gameObject.SetActive(false);

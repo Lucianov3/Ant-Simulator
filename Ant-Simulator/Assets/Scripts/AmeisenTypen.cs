@@ -12,7 +12,8 @@ namespace AmeisenTypen
         protected string Gender { get; set; }
 
         protected float Health { get; set; }
-
+        protected float Energy { get; set; }
+        protected float Hunger { get; set; }
         protected float Thirsty { get; set; }
         protected GameObject Ameise { get; set; }
 
@@ -46,6 +47,8 @@ namespace AmeisenTypen
             Ameise.name = Name + "(Arbeiter)";
             this.Ameise = Ameise;
             Health = 100;
+            Hunger = 100;
+            Energy = 100;
             Thirsty = 100;
         }
 
@@ -54,8 +57,16 @@ namespace AmeisenTypen
 
     public class Soldat : StandardAmeise
     {
-        public Soldat()
+        public Soldat(GameObject Ameise)
         {
+            Gender = RandomGender();
+            Name = RandomName();
+            Ameise.name = Name + "(Soldat)";
+            this.Ameise = Ameise;
+            Health = 100;
+            Hunger = 100;
+            Energy = 100;
+            Thirsty = 100;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.IO;
 public class GameManager : MonoBehaviour
 {
     public static int MaxAnts = 100;
-    public static int CurrentAnts;
+    public static int CurrentAnts = 3;
     private string fileline;
     private string fileline2;
 
@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public static List<string> NameListW = new List<string>();
     public static List<string> NameListM = new List<string>();
     public static List<AmeisenTypen.Arbeiter> ArbeiterInstanzen = new List<AmeisenTypen.Arbeiter>();
+    public static List<AmeisenTypen.Soldat> SoldatenInstanzen = new List<AmeisenTypen.Soldat>();
 
     private GameObject ant;
     private GameObject antPool;
@@ -38,12 +39,13 @@ public class GameManager : MonoBehaviour
         readerW.Close();
 
         antPool = GameObject.Find("AntPool");
-        ant = GameObject.Find("operarius cibo formica");
+        ant = GameObject.Find("Ant_Worker");
         if (antPool != null)
         {
             for (int i = 0; i <= MaxAnts; i++)
             {
                 GameObject temp = Instantiate(ant, antPool.transform);
+                temp.transform.position = antPool.transform.position;
                 Ants.Enqueue(temp);
                 temp.gameObject.SetActive(false);
                 temp.name = "Ameise" + i;

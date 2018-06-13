@@ -7,11 +7,17 @@ ModelImporter:
     100002: pCylinder1
     400000: //RootNode
     400002: pCylinder1
-    2100000: pCylinder1Mat
+    2100000: initialShadingGroup
+    2100002: pCylinder1Mat
     2300000: pCylinder1
     3300000: pCylinder1
     4300000: pCylinder1
   externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: initialShadingGroup
+    second: {fileID: 2100000, guid: d20b84bf88f48a445a1ec3fbdda93720, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

@@ -47,7 +47,42 @@ ModelImporter:
     4300008: initialShadingGroup_polySurface13
     4300010: initialShadingGroup_polySurface8
     4300012: initialShadingGroup_polySurface9
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: initialShadingGroup_pCube1Mat
+    second: {fileID: 2100000, guid: 83c97b30a5f3cf1458e731b66058ee67, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: initialShadingGroup_polySurface10Mat
+    second: {fileID: 2100000, guid: 83c97b30a5f3cf1458e731b66058ee67, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: initialShadingGroup_polySurface11Mat
+    second: {fileID: 2100000, guid: 83c97b30a5f3cf1458e731b66058ee67, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: initialShadingGroup_polySurface12Mat
+    second: {fileID: 2100000, guid: 83c97b30a5f3cf1458e731b66058ee67, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: initialShadingGroup_polySurface13Mat
+    second: {fileID: 2100000, guid: 83c97b30a5f3cf1458e731b66058ee67, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: initialShadingGroup_polySurface8Mat
+    second: {fileID: 2100000, guid: 83c97b30a5f3cf1458e731b66058ee67, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: initialShadingGroup_polySurface9Mat
+    second: {fileID: 2100000, guid: 83c97b30a5f3cf1458e731b66058ee67, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

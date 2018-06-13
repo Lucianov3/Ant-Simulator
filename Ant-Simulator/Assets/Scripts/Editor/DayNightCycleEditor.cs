@@ -10,7 +10,7 @@ public class DayNightCycleEditor : Editor
     {
         DrawDefaultInspector();
         DayNightCycle myTarget = (DayNightCycle)target;
-        myTarget.minutes = EditorGUILayout.IntSlider("Minutes",myTarget.minutes, 0, 59);
-        myTarget.hours = EditorGUILayout.IntSlider("Hours",myTarget.hours, 0, 23);
+        //myTarget.minutes = EditorGUILayout.IntSlider("Minutes",myTarget.minutes, 0, 59);
+        //myTarget.hours = EditorGUILayout.IntSlider("Hours",myTarget.hours, 0, 23);
     }
 }

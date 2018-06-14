@@ -59,17 +59,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static void SwitchCamera()
+    public static void SwitchToUnderWorldCamera()
     {
         if (overworldCamera.activeSelf)
         {
             overworldCamera.SetActive(false);
             underworldCamera.SetActive(true);
         }
-        else
+    }
+    public static void SwitchToOverWorldCamera()
+    {
+        if(underworldCamera.activeSelf)
         {
             underworldCamera.SetActive(false);
             overworldCamera.SetActive(true);
         }
     }
+    
 }

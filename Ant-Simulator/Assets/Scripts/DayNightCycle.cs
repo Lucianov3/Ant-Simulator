@@ -16,6 +16,7 @@ public class DayNightCycle : MonoBehaviour
 
     [HideInInspector] public float hours;
     [HideInInspector] public float minutes;
+    [HideInInspector] public float seconds;
     [HideInInspector] public bool hasClockBeenSet;
 
     private void Start()
@@ -82,8 +83,10 @@ public class DayNightCycle : MonoBehaviour
                 break;
         }
         timer += Time.deltaTime;
+        seconds += Time.deltaTime*60;
         if (timer >= 1)
         {
+            seconds = 0;
             timer = 0;
             minutes++;
             if (minutes == 60)
@@ -157,15 +160,15 @@ public class DayNightCycle : MonoBehaviour
     private void UpdateSun()
     {
         
-        float sunAngle = (240 * hours / 24) + ((240 / 24) * minutes / 60)-30;
+        float sunAngle = (240 * hours / 24) + ((240 / 24) * minutes / 60) - 30;
         transform.eulerAngles = new Vector3(sunAngle, -90, -90);
         if(hours < 12)
         {
-            light.intensity = hours / 12;
+            light.intensity = (hours / 12) + (minutes / 60 / 12);
         }
         else
         {
-            light.intensity = 1 - (hours-12) / 12;
+            light.intensity = 1 - ((hours-12) / 12) - (minutes / 60 / 12);
         }
     }
 }

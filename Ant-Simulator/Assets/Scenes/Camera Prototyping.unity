@@ -13343,6 +13343,50 @@ Prefab:
       propertyPath: m_Name
       value: Overworld Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 114515447825850794, guid: a3f7012510e98034b931b7522b69b41f,
+        type: 2}
+      propertyPath: MaxDistanceCameraToFloor
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114515447825850794, guid: a3f7012510e98034b931b7522b69b41f,
+        type: 2}
+      propertyPath: CurrentDistanceCameraToFloor
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 20501236117614160, guid: a3f7012510e98034b931b7522b69b41f,
+        type: 2}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 20501236117614160, guid: a3f7012510e98034b931b7522b69b41f,
+        type: 2}
+      propertyPath: m_BackGroundColor.r
+      value: 0.315
+      objectReference: {fileID: 0}
+    - target: {fileID: 20501236117614160, guid: a3f7012510e98034b931b7522b69b41f,
+        type: 2}
+      propertyPath: m_BackGroundColor.g
+      value: 0.224
+      objectReference: {fileID: 0}
+    - target: {fileID: 20501236117614160, guid: a3f7012510e98034b931b7522b69b41f,
+        type: 2}
+      propertyPath: m_BackGroundColor.b
+      value: 0.109
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575153111646070, guid: a3f7012510e98034b931b7522b69b41f, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114515447825850794, guid: a3f7012510e98034b931b7522b69b41f,
+        type: 2}
+      propertyPath: MaxXPositionValue
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114515447825850794, guid: a3f7012510e98034b931b7522b69b41f,
+        type: 2}
+      propertyPath: MaxZPositionValue
+      value: 150
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a3f7012510e98034b931b7522b69b41f, type: 2}
   m_IsPrefabParent: 0

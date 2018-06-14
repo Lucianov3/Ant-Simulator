@@ -8,16 +8,18 @@ public class OverWorldCameraScript : MonoBehaviour
     GameObject parent;
     public float MaxDistanceCameraToFloor = 10; 
     public float MinDistanceCameraToFloor = 1;
-    public float CurrentDisctanceCameraToFloor = 10;
+    public float CurrentDistanceCameraToFloor = 10;
     public float CameraMovementSpeed = 0.1f;
     public float CameraRotationSpeed = 1;
     public float ZoomSpeed = 5;
+    public float MaxXPositionValue;
+    public float MaxZPositionValue;
     Vector3 cameraMovement;
-    Vector3 cameraZoom;
     Vector3 tempMousePosition;
     bool rightMouseButtonIsBeingPressed;
     public float RaycastDistance;
     public LayerMask LM;
+    private float cameraResetSmoothness = 0.5f;
 
     public bool MouseMovementEnabled = true;
 
@@ -31,7 +33,6 @@ public class OverWorldCameraScript : MonoBehaviour
 	void Update ()
     {
         cameraMovement = new Vector3(0, 0, 0);
-        cameraZoom = new Vector3(0, 0, 0);
         
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
@@ -69,24 +70,40 @@ public class OverWorldCameraScript : MonoBehaviour
         }
         if (Input.GetAxis("Mouse ScrollWheel") != 0 && !rightMouseButtonIsBeingPressed)
         {
-            cameraZoom += new Vector3(0, 0, Input.GetAxis("Mouse ScrollWheel") * ZoomSpeed);
-            CurrentDisctanceCameraToFloor -= Input.GetAxis("Mouse ScrollWheel")*ZoomSpeed;
-            CurrentDisctanceCameraToFloor = Mathf.Max(CurrentDisctanceCameraToFloor, MinDistanceCameraToFloor);
-            CurrentDisctanceCameraToFloor = Mathf.Min(CurrentDisctanceCameraToFloor, MaxDistanceCameraToFloor);
+            CurrentDistanceCameraToFloor -= Input.GetAxis("Mouse ScrollWheel")*ZoomSpeed;
+            CurrentDistanceCameraToFloor = Mathf.Max(CurrentDistanceCameraToFloor, MinDistanceCameraToFloor);
+            CurrentDistanceCameraToFloor = Mathf.Min(CurrentDistanceCameraToFloor, MaxDistanceCameraToFloor);
         }
-        Ray ray = new Ray(transform.position, new Vector3(0,-150,150));
-        Debug.DrawRay(transform.position, new Vector3(0, -150, 150));
+
+        //Ray ray = new Ray(transform.position, new Vector3(0,-50,50));
+        //Debug.DrawRay(transform.position, new Vector3(0, -50, 50));
+        Ray ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward));
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 50);
         RaycastHit hitInfo;
-        Physics.Raycast(ray, out hitInfo, 150, LM);
+        Physics.Raycast(ray, out hitInfo, 50, LM);
         RaycastDistance = hitInfo.distance;
-        //transform.Translate(cameraZoom.normalized * ZoomSpeed * Time.unscaledDeltaTime);
+        parent.transform.position = Vector3.Lerp(parent.transform.position, new Vector3(parent.transform.position.x, hitInfo.point.y, parent.transform.position.z), 0.1f);
 
-        transform.localPosition = new Vector3(0, CurrentDisctanceCameraToFloor, -CurrentDisctanceCameraToFloor);
-        //if(parent.transform.position.y - hitInfo.point.y >)
-        parent.transform.position = new Vector3(parent.transform.position.x,hitInfo.point.y,parent.transform.position.z);
-
+        transform.localPosition = new Vector3(0, CurrentDistanceCameraToFloor, -CurrentDistanceCameraToFloor);
         parent.transform.Translate(cameraMovement.normalized*CameraMovementSpeed*transform.position.y*Time.unscaledDeltaTime);
-        if(transform.localPosition.y > MaxDistanceCameraToFloor)
+        if(parent.transform.position.x >= MaxXPositionValue)
+        {
+            parent.transform.position = Vector3.Lerp(parent.transform.position, new Vector3(MaxXPositionValue, parent.transform.position.y, parent.transform.position.z), cameraResetSmoothness);
+        }
+        if (parent.transform.position.x <= -MaxXPositionValue)
+        {
+            parent.transform.position = Vector3.Lerp(parent.transform.position, new Vector3(-MaxXPositionValue, parent.transform.position.y, parent.transform.position.z), cameraResetSmoothness);
+        }
+        if (parent.transform.position.z >= MaxZPositionValue)
+        {
+            parent.transform.position = Vector3.Lerp(parent.transform.position, new Vector3(parent.transform.position.x, parent.transform.position.y, MaxZPositionValue), cameraResetSmoothness);
+        }
+        if (parent.transform.position.z <= -MaxZPositionValue)
+        {
+            parent.transform.position = Vector3.Lerp(parent.transform.position, new Vector3(parent.transform.position.x, parent.transform.position.y, -MaxZPositionValue), cameraResetSmoothness);
+        }
+
+        if (transform.localPosition.y > MaxDistanceCameraToFloor)
         {
             transform.localPosition = new Vector3(transform.position.x, MaxDistanceCameraToFloor, transform.position.z);
         }

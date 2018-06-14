@@ -22,6 +22,5 @@ public class ButtonInfoScript : MonoBehaviour
 
     private void OnMouseEnter(Collider other)
     {
-        Debug.Log("berührt");
     }
 }

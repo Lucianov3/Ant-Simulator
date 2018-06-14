@@ -8,6 +8,7 @@ public class OverWorldCameraScript : MonoBehaviour
     GameObject parent;
     public float MaxDistanceCameraToFloor = 10; 
     public float MinDistanceCameraToFloor = 1;
+    public float CurrentDisctanceCameraToFloor = 10;
     public float CameraMovementSpeed = 0.1f;
     public float CameraRotationSpeed = 1;
     public float ZoomSpeed = 5;
@@ -15,6 +16,8 @@ public class OverWorldCameraScript : MonoBehaviour
     Vector3 cameraZoom;
     Vector3 tempMousePosition;
     bool rightMouseButtonIsBeingPressed;
+    public float RaycastDistance;
+    public LayerMask LM;
 
     public bool MouseMovementEnabled = true;
 
@@ -22,13 +25,14 @@ public class OverWorldCameraScript : MonoBehaviour
     {
         camera = GetComponent<Camera>();
         parent = camera.transform.parent.gameObject;
-        transform.position = new Vector3(0,MaxDistanceCameraToFloor, -MaxDistanceCameraToFloor);
+        transform.position = new Vector3(0,MaxDistanceCameraToFloor, 0);
 	}
 	
 	void Update ()
     {
         cameraMovement = new Vector3(0, 0, 0);
         cameraZoom = new Vector3(0, 0, 0);
+        
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             rightMouseButtonIsBeingPressed = true;
@@ -66,20 +70,33 @@ public class OverWorldCameraScript : MonoBehaviour
         if (Input.GetAxis("Mouse ScrollWheel") != 0 && !rightMouseButtonIsBeingPressed)
         {
             cameraZoom += new Vector3(0, 0, Input.GetAxis("Mouse ScrollWheel") * ZoomSpeed);
+            CurrentDisctanceCameraToFloor -= Input.GetAxis("Mouse ScrollWheel")*ZoomSpeed;
+            CurrentDisctanceCameraToFloor = Mathf.Max(CurrentDisctanceCameraToFloor, MinDistanceCameraToFloor);
+            CurrentDisctanceCameraToFloor = Mathf.Min(CurrentDisctanceCameraToFloor, MaxDistanceCameraToFloor);
         }
+        Ray ray = new Ray(transform.position, new Vector3(0,-150,150));
+        Debug.DrawRay(transform.position, new Vector3(0, -150, 150));
+        RaycastHit hitInfo;
+        Physics.Raycast(ray, out hitInfo, 150, LM);
+        RaycastDistance = hitInfo.distance;
+        //transform.Translate(cameraZoom.normalized * ZoomSpeed * Time.unscaledDeltaTime);
+
+        transform.localPosition = new Vector3(0, CurrentDisctanceCameraToFloor, -CurrentDisctanceCameraToFloor);
+        //if(parent.transform.position.y - hitInfo.point.y >)
+        parent.transform.position = new Vector3(parent.transform.position.x,hitInfo.point.y,parent.transform.position.z);
+
         parent.transform.Translate(cameraMovement.normalized*CameraMovementSpeed*transform.position.y*Time.unscaledDeltaTime);
-        transform.Translate(cameraZoom*Time.unscaledDeltaTime,Space.Self);
-        if(transform.position.y > MaxDistanceCameraToFloor)
+        if(transform.localPosition.y > MaxDistanceCameraToFloor)
         {
-            transform.position = new Vector3(transform.position.x, MaxDistanceCameraToFloor, transform.position.z);
+            transform.localPosition = new Vector3(transform.position.x, MaxDistanceCameraToFloor, transform.position.z);
         }
         if (transform.localPosition.z < -MaxDistanceCameraToFloor)
         {
             transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, -MaxDistanceCameraToFloor);
         }
-        if (transform.position.y < MinDistanceCameraToFloor )
+        if (transform.localPosition.y < MinDistanceCameraToFloor )
         {
-            transform.position = new Vector3(transform.position.x, MinDistanceCameraToFloor, transform.position.z);
+            transform.localPosition = new Vector3(transform.position.x, MinDistanceCameraToFloor, transform.position.z);
         }
         if (transform.localPosition.z > -MinDistanceCameraToFloor)
         {

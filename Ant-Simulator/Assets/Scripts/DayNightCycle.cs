@@ -10,17 +10,17 @@ public class DayNightCycle : MonoBehaviour
     [SerializeField] private TextMeshProUGUI clockText;
 
     private float timer;
-    private Transform light;
+    private Light light;
 
     [SerializeField] private SpeedMode Speed;
 
-    [HideInInspector] public int hours;
-    [HideInInspector] public int minutes;
+    [HideInInspector] public float hours;
+    [HideInInspector] public float minutes;
     [HideInInspector] public bool hasClockBeenSet;
 
     private void Start()
     {
-        light = transform;
+        light = GetComponent<Light>();
         if (!hasClockBeenSet)
         {
             hours = 12;
@@ -156,7 +156,16 @@ public class DayNightCycle : MonoBehaviour
 
     private void UpdateSun()
     {
-        float sunAngle = (180 * hours / 24) + ((180 / 24) * minutes / 60);
+        
+        float sunAngle = (240 * hours / 24) + ((240 / 24) * minutes / 60)-30;
         transform.eulerAngles = new Vector3(sunAngle, -90, -90);
+        if(hours < 12)
+        {
+            light.intensity = hours / 12;
+        }
+        else
+        {
+            light.intensity = 1 - (hours-12) / 12;
+        }
     }
 }

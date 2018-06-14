@@ -8,9 +8,13 @@ public class ButtonScripts : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    public void switchCameras()
+    public void switchToUnderWorldCamera()
     {
-        GameManager.SwitchCamera();
+        GameManager.SwitchToUnderWorldCamera();
+    }
+    public void switchToOverWorldCamera()
+    {
+        GameManager.SwitchToOverWorldCamera();
     }
 
     public void ExitScene()

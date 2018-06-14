@@ -251,7 +251,12 @@ ModelImporter:
     4300092: group7_tree9
     4300094: hive
     4300096: tree8_group7
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: initialShadingGroup
+    second: {fileID: 2100000, guid: 504ae362e57fc464b847f1e9fd0e4035, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

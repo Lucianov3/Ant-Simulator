@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         readerW.Close();
 
         antPool = GameObject.Find("AntPool");
-        ant = GameObject.Find("Ant_Worker");
+        ant = GameObject.Find("Worker");
         if (antPool != null)
         {
             for (int i = 0; i <= MaxAnts; i++)
@@ -67,13 +67,13 @@ public class GameManager : MonoBehaviour
             underworldCamera.SetActive(true);
         }
     }
+
     public static void SwitchToOverWorldCamera()
     {
-        if(underworldCamera.activeSelf)
+        if (underworldCamera.activeSelf)
         {
             underworldCamera.SetActive(false);
             overworldCamera.SetActive(true);
         }
     }
-    
 }

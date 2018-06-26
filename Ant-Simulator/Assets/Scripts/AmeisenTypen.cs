@@ -7,19 +7,18 @@ namespace AmeisenTypen
 {
     public abstract class StandardAmeise : MonoBehaviour
     {
-        protected string Name { get; set; }
+        public string Name { get; protected set; }
 
-        protected string Gender { get; set; }
+        public string Gender { get; protected set; }
 
-        protected float Health { get; set; }
-        protected float Energy { get; set; }
-        protected float Hunger { get; set; }
-        protected float Thirsty { get; set; }
-        protected GameObject Ameise { get; set; }
+        public float Health { get; protected set; }
+        public float Energy { get; protected set; }
+        public float Hunger { get; protected set; }
+        public float Thirsty { get; protected set; }
 
         public string RandomName()
         {
-            if (Gender == "Männlich")
+            if (Gender == "Male")
                 Name = GameManager.NameListM[Random.Range(0, GameManager.NameListM.Count)];
             else
                 Name = GameManager.NameListW[Random.Range(0, GameManager.NameListW.Count)];
@@ -31,25 +30,22 @@ namespace AmeisenTypen
         {
             int temp = Random.Range(1, 3);
             if (temp == 1)
-                Gender = "Männlich";
+                Gender = "Male";
             else
-                Gender = "Weiblich";
+                Gender = "Female";
             return Gender;
         }
     }
 
     public class Arbeiter : StandardAmeise
     {
-        public Arbeiter(GameObject Ameise)
+        private bool hungry;
+        private bool thirsty;
+        private bool theChosenOne;
+
+        private void Start()
         {
-            Gender = RandomGender();
-            Name = RandomName();
-            Ameise.name = Name + "(Arbeiter)";
-            this.Ameise = Ameise;
-            Health = 100;
-            Hunger = 100;
-            Energy = 100;
-            Thirsty = 100;
+            this.gameObject.name = Name + " " + Gender;
         }
 
         //Hier musst du die logik für die arbeiter einfügen.
@@ -57,16 +53,7 @@ namespace AmeisenTypen
 
     public class Soldat : StandardAmeise
     {
-        public Soldat(GameObject Ameise)
-        {
-            Gender = RandomGender();
-            Name = RandomName();
-            Ameise.name = Name + "(Soldat)";
-            this.Ameise = Ameise;
-            Health = 100;
-            Hunger = 100;
-            Energy = 100;
-            Thirsty = 100;
-        }
+        private bool hungry;
+        private bool thirsty;
     }
 }

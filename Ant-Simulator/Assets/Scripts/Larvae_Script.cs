@@ -9,26 +9,26 @@ public class Larvae_Script : MonoBehaviour
     private IEnumerator Bruht()
     {
         yield return new WaitForSeconds(5f);
-        GameObject temp = GameManager.Ants.Dequeue();
-         
-        if (Mathf.RoundToInt((GameManager.CurrentAnts *20)/100) < GameManager.SoldatenInstanzen.Count && GameManager.CurrentAnts >= 10)
+
+        GameObject temp = GameManager.Ants.Dequeue();                                               //Ameise wird aus der Queue genommen
+
+        if (Mathf.RoundToInt((GameManager.CurrentAnts * 20) / 100) < GameManager.SoldatenInstanzen.Count && GameManager.CurrentAnts >= 10)
         {
-            AmeisenTypen.Soldat Ameise = new AmeisenTypen.Soldat(temp);
+            temp.AddComponent<AmeisenTypen.Soldat>();
             GameManager.CurrentAnts++;
-            GameManager.SoldatenInstanzen.Add(Ameise);
+            GameManager.SoldatenInstanzen.Add(temp);
         }
         else
         {
-            AmeisenTypen.Arbeiter Ameise = new AmeisenTypen.Arbeiter(temp);
+            temp.AddComponent<AmeisenTypen.Arbeiter>();
             GameManager.CurrentAnts++;
-            GameManager.ArbeiterInstanzen.Add(Ameise);
+            GameManager.ArbeiterInstanzen.Add(temp);
         }
         temp.SetActive(true);
 
         temp.transform.SetPositionAndRotation(this.gameObject.transform.position + new Vector3(0, 0, 0), Quaternion.Euler(0f, 0f, 0f));
         KI_Rigina_formica.LarvaeQ.Enqueue(this.gameObject);
         this.gameObject.SetActive(false);
-
     }
 
     private void OnEnable()

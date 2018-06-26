@@ -5,16 +5,16 @@ using System.IO;
 
 public class GameManager : MonoBehaviour
 {
-    public static int MaxAnts = 100;
-    public static int CurrentAnts = 3;
+    public static int MaxAnts = 97;                             //Wird mit den anfang ameisen addiert
+    public static int CurrentAnts = 3;                          //Drei ameisen am anfang 1xKönigen,1xArbeiter,1xSoldat
     private string fileline;
     private string fileline2;
 
     public static Queue<GameObject> Ants = new Queue<GameObject>();
     public static List<string> NameListW = new List<string>();
     public static List<string> NameListM = new List<string>();
-    public static List<AmeisenTypen.Arbeiter> ArbeiterInstanzen = new List<AmeisenTypen.Arbeiter>();
-    public static List<AmeisenTypen.Soldat> SoldatenInstanzen = new List<AmeisenTypen.Soldat>();
+    public static List<GameObject> ArbeiterInstanzen = new List<GameObject>();
+    public static List<GameObject> SoldatenInstanzen = new List<GameObject>();
 
     private GameObject ant;
     private GameObject antPool;

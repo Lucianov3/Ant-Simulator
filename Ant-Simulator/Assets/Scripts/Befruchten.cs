@@ -13,14 +13,16 @@ public class Befruchten : StateMachineBehaviour
     {
         queen = new KI_Rigina_formica();
         ant = animator.GetComponent<NavMeshAgent>();
+
         ant.SetDestination(Targetposition);
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (Vector3.Distance(Targetposition, ant.transform.position) < 1)
+        if (Vector3.Distance(Targetposition, ant.transform.position) < 1 && animator.GetBool("KönigenBraucht"))
         {
             queen.SpawnLarva();
+            animator.SetBool("KönigenBraucht", false);
         }
     }
 

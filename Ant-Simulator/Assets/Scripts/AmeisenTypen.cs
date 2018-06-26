@@ -12,7 +12,6 @@ namespace AmeisenTypen
         public string Gender { get; protected set; }
 
         public float Health { get; protected set; }
-<<<<<<< HEAD
         public float MaxHealth { get; protected set; }
         public float Energy { get; protected set; }
         public float MaxEnergy { get; protected set; }
@@ -20,12 +19,6 @@ namespace AmeisenTypen
         public float MaxHunger { get; protected set; }
         public float Thirst { get; protected set; }
         public float MaxThirst { get; protected set; }
-        public GameObject Ameise { get; protected set; }
-=======
-        public float Energy { get; protected set; }
-        public float Hunger { get; protected set; }
-        public float Thirsty { get; protected set; }
->>>>>>> 9b092f499ca28cb6a86743b3b84bef9703779ad8
 
         public string RandomName()
         {
@@ -73,11 +66,8 @@ namespace AmeisenTypen
 
         private void Start()
         {
-<<<<<<< HEAD
             Gender = RandomGender();
             Name = RandomName();
-            Ameise.name = Name + "(Arbeiter)";
-            this.Ameise = Ameise;
             Health = 100;
             MaxHealth = Health;
             Hunger = 100;
@@ -86,9 +76,7 @@ namespace AmeisenTypen
             MaxEnergy = Energy;
             Thirst = 100;
             MaxThirst = Thirst;
-=======
             this.gameObject.name = Name + " " + Gender;
->>>>>>> 9b092f499ca28cb6a86743b3b84bef9703779ad8
         }
 
         //Hier musst du die logik für die arbeiter einfügen.
@@ -96,13 +84,10 @@ namespace AmeisenTypen
 
     public class Soldat : StandardAmeise
     {
-<<<<<<< HEAD
-        public Soldat(GameObject Ameise)
+        public void Start()
         {
             Gender = RandomGender();
             Name = RandomName();
-            Ameise.name = Name + "(Soldat)";
-            this.Ameise = Ameise;
             Health = 100;
             MaxHealth = Health;
             Hunger = 100;
@@ -112,9 +97,7 @@ namespace AmeisenTypen
             Thirst = 100;
             MaxThirst = Thirst;
         }
-=======
         private bool hungry;
         private bool thirsty;
->>>>>>> 9b092f499ca28cb6a86743b3b84bef9703779ad8
     }
 }

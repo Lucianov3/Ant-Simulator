@@ -11,6 +11,7 @@ ModelImporter:
     2300000: Ant_Worker2:pCylinder1
     3300000: Ant_Worker2:pCylinder1
     4300000: Ant_Worker2:pCylinder1
+    6400000: Ant_Worker2:pCylinder1
   externalObjects:
   - first:
       type: UnityEngine:Material

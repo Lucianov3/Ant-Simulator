@@ -55,14 +55,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        ant.AddComponent<AmeisenTypen.Arbeiter>();
-
-        if (GameObject.Find("Overworld Camera"))
-        {
-            overworldCamera = GameObject.Find("Overworld Camera");
-            underworldCamera = GameObject.Find("Underworld Camera");
-            underworldCamera.SetActive(false);
-        }
+        //ant.AddComponent<AmeisenTypen.Arbeiter>();
     }
 
     public static void SwitchToUnderWorldCamera()

@@ -3,13 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Room1
-  - Room2
-  - Room3
-  - QueenRoom
-  - FoodRoom
-  - NoBlock
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -19,12 +13,8 @@ TagManager:
   - UI
   - 
   - 
-  - Ground
-<<<<<<< HEAD
-  - NoTunnel
-=======
-  - Ant
->>>>>>> 097d32cc65e14b930a140e2345a23dfb89b6cafb
+  - 
+  - 
   - 
   - 
   - 

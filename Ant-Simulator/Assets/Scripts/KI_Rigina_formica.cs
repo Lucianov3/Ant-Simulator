@@ -20,10 +20,13 @@ public class KI_Rigina_formica : MonoBehaviour
 
     private IEnumerator Fruchtbarkeit()
     {
-        yield return new WaitForSeconds(7);
-
-        int i = Random.Range(0, GameManager.ArbeiterInstanzen.Count - 1);
-        GameObject temp = GameManager.ArbeiterInstanzen[i];
+        yield return new WaitForSeconds(5);
+        GameObject temp;
+        do
+        {
+            int i = Random.Range(0, GameManager.ArbeiterInstanzen.Count - 1);
+            temp = GameManager.ArbeiterInstanzen[i];
+        } while (temp.GetComponent<AmeisenTypen.Arbeiter>().Gender != "Male");
         temp.GetComponent<AmeisenTypen.Arbeiter>().TheChosenOne = true;
 
         StartCoroutine(Fruchtbarkeit());

@@ -22,6 +22,9 @@ namespace AmeisenTypen
         public float Thirst { get; protected set; }
         public float MaxThirst { get; protected set; }
 
+        public Animator Animator;
+        public NavMeshAgent Agent;
+
         public string RandomName()
         {
             if (Gender == "Male")
@@ -114,6 +117,10 @@ namespace AmeisenTypen
             state = CurrentState.Nothing;
             queen = GameObject.Find("Queen_New_Prefab");
             queenLocation = queen.gameObject.transform.position;
+
+            Animator = GetComponent<Animator>();
+            Agent = GetComponent<NavMeshAgent>();
+
         }
 
         private void Update()
@@ -147,6 +154,7 @@ namespace AmeisenTypen
                 default:
                     break;
             }
+            Animator.SetBool("isMoving", !antAgent.isStopped);
         }
 
         private void GetFood()
@@ -226,6 +234,9 @@ namespace AmeisenTypen
             Thirst = 100;
             MaxThirst = Thirst;
             this.gameObject.name = Name + " " + Gender;
+
+            Animator = GetComponent<Animator>();
+
         }
 
         private bool hungry;

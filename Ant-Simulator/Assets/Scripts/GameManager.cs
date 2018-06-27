@@ -51,12 +51,6 @@ public class GameManager : MonoBehaviour
                 temp.name = "Ameise" + i;
             }
         }
-        if (GameObject.Find("Overworld Camera"))
-        {
-            overworldCamera = GameObject.Find("Overworld Camera");
-            underworldCamera = GameObject.Find("Underworld Camera");
-            underworldCamera.SetActive(false);
-        }
     }
 
     public static void SwitchToUnderWorldCamera()

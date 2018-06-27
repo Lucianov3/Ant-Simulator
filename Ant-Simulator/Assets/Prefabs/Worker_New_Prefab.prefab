@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4127900372274040}
   - component: {fileID: 33108877278798546}
   - component: {fileID: 23783969170265024}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: initialShadingGroup_polySurface10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4728897379602470}
   - component: {fileID: 33291948561011346}
   - component: {fileID: 23132999354013208}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: initialShadingGroup_polySurface8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4839261612035074}
   - component: {fileID: 33473299555007862}
   - component: {fileID: 23551910453267924}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: initialShadingGroup_polySurface13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4643984044186206}
   - component: {fileID: 95312506077893904}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Worker_New_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 4439918889584224}
   - component: {fileID: 33604360756120428}
   - component: {fileID: 23881584033863520}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: initialShadingGroup_polySurface9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 4429750081705892}
   - component: {fileID: 33147607584732298}
   - component: {fileID: 23860981000781786}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: initialShadingGroup_polySurface12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 4420333056145358}
   - component: {fileID: 33979288631769158}
   - component: {fileID: 23863322844150120}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: initialShadingGroup_polySurface11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 4611705226599946}
   - component: {fileID: 33130322150037552}
   - component: {fileID: 23883131577531472}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: initialShadingGroup_pPrism2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

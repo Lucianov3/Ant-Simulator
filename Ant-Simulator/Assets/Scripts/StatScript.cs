@@ -6,7 +6,7 @@ using TMPro;
 
 public class StatScript : MonoBehaviour
 {
-    private TextMeshProUGUI antName;
+    [SerializeField] private TextMeshProUGUI antName;
     private Image antGender;
     [SerializeField] private Sprite[] genderSprites;
     private TextMeshProUGUI antState;
@@ -22,7 +22,10 @@ public class StatScript : MonoBehaviour
     [SerializeField] private float hungerBarMaxValue;
     [SerializeField] private float thirstBarValue;
     [SerializeField] private float thirstBarMaxValue;
-    private AmeisenTypen.StandardAmeise ant;
+    public AmeisenTypen.StandardAmeise ant;
+
+    public static bool statScreenIsActive = false;
+
 
     private void Start()
     {
@@ -32,8 +35,16 @@ public class StatScript : MonoBehaviour
         thirstBar = new StatBar(thirstBarValue, thirstBarMaxValue, transform.GetChild(3).GetComponent<RectTransform>());
         antName = transform.GetChild(4).GetComponent<TextMeshProUGUI>();
         antGender = transform.GetChild(5).GetComponent<Image>();
+        antState = transform.GetChild(6).GetComponent<TextMeshProUGUI>();
+        
     }
+    private void Update()
+    {
+        UpdateAllBars();
+        UpdateName();
+        UpdateGender();
 
+    }
     private void UpdateAllBars()
     {
         healthBar.UpdateBar(ant.ReturnStat("Health"));
@@ -44,7 +55,7 @@ public class StatScript : MonoBehaviour
 
     private void UpdateName()
     {
-        antName.text = ant.name;
+        antName.text = ant.Name;
     }
 
     private void UpdateGender()

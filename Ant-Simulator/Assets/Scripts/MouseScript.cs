@@ -8,41 +8,46 @@ public class MouseScript : MonoBehaviour
     Camera underworldCamera;
     Ray ray;
     [SerializeField] LayerMask layerMask;
+    [SerializeField] GameObject antStatsScreen;
+    GameObject tempStatScreen;
 
-    void Start ()
-    {
-        overworldCamera = GameObject.Find("Overworld Camera").transform.GetChild(0).GetComponent<Camera>();
-        //underworldCamera = GameObject.Find("Underworld Camera").GetComponent<Camera>();
-    }
 
-	void Update ()
+    void Update ()
     {
-        if (overworldCamera.gameObject.activeSelf)
+        if(overworldCamera != null  && underworldCamera != null)
         {
-            ray = overworldCamera.ScreenPointToRay(Input.mousePosition);
-        }
-        else
-        {
-            ray = underworldCamera.ScreenPointToRay(Input.mousePosition);
-        }
-        RaycastHit hitInfo;
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            if (Physics.Raycast(ray,out hitInfo, layerMask))
+            if (overworldCamera.gameObject.activeSelf)
             {
-                if (hitInfo.transform.GetComponent<AmeisenTypen.Arbeiter>())
+                ray = overworldCamera.ScreenPointToRay(Input.mousePosition);
+            }
+            else
+            {
+                ray = underworldCamera.ScreenPointToRay(Input.mousePosition);
+            }
+            RaycastHit hitInfo;
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                if (Physics.Raycast(ray, out hitInfo,Mathf.Infinity,layerMask))
                 {
-                    //Show Arbeiter Stats
-                }
-                else if(hitInfo.transform.GetComponent<AmeisenTypen.Soldat>())
-                {
-                    //Show Soldat Stats
-                }
-                else
-                {
-                    //Show Königin Stats
+                    GameObject temp = hitInfo.collider.gameObject;
+                    if (StatScript.statScreenIsActive)
+                    {
+                        tempStatScreen.GetComponent<StatScript>().ant = hitInfo.transform.GetComponent<AmeisenTypen.Arbeiter>();
+                    }
+                    else
+                    {
+                        tempStatScreen = antStatsScreen;
+                        tempStatScreen = Instantiate(antStatsScreen,GameObject.Find("Canvas").transform);
+                        tempStatScreen.GetComponent<StatScript>().ant = hitInfo.transform.GetComponent<AmeisenTypen.Arbeiter>();
+                        StatScript.statScreenIsActive = true;
+                    }
                 }
             }
+        }
+        else if(GameManager.overworldCamera != null && GameManager.underworldCamera != null)
+        {
+            overworldCamera = GameManager.overworldCamera.transform.GetChild(0).GetComponent<Camera>();
+            underworldCamera = GameManager.underworldCamera.GetComponent<Camera>();
         }
     }
 }

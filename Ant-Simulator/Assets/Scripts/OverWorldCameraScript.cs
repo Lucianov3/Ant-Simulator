@@ -25,6 +25,7 @@ public class OverWorldCameraScript : MonoBehaviour
 
     void Start ()
     {
+        GameManager.overworldCamera = transform.parent.gameObject;
         camera = GetComponent<Camera>();
         parent = camera.transform.parent.gameObject;
         transform.position = new Vector3(0,MaxDistanceCameraToFloor, 0);

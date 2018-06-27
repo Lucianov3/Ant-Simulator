@@ -17,8 +17,10 @@ public class UnderworldCameraScript : MonoBehaviour
 
     void Start ()
     {
+        GameManager.underworldCamera = gameObject;
         camera = GetComponent<Camera>();
         transform.position = new Vector3(-MaxDistanceCameraToWall, -MaxDistanceCameraToWall, 0);
+        gameObject.SetActive(false);
 	}
 
 	void Update ()

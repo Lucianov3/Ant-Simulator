@@ -10,7 +10,7 @@ namespace AmeisenTypen
     {
         public string Name { get; protected set; }
 
-        public string Gender { get; protected set; }
+        public string Gender { get; set; }
 
         public float Health { get; protected set; }
         public float MaxHealth { get; protected set; }
@@ -94,6 +94,10 @@ namespace AmeisenTypen
         private void Start()
         {
             Gender = RandomGender();
+            if (GameManager.ArbeiterInstanzen.Count == 1)
+            {
+                Gender = "Male";
+            }
             Name = RandomName() + " (arbeiter)";
             Health = 100;
             MaxHealth = Health;

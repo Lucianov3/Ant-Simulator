@@ -8,7 +8,7 @@ public class Larvae_Script : MonoBehaviour
 
     private IEnumerator Bruht()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(5);
 
         GameObject temp = GameManager.Ants.Dequeue();                                               //Ameise wird aus der Queue genommen
 

@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public static List<GameObject> SoldatenInstanzen = new List<GameObject>();
 
     private GameObject ant;
+    private GameObject Ant_Soldat;
     private GameObject antPool;
     public static GameObject overworldCamera;
     public static GameObject underworldCamera;
@@ -53,16 +54,15 @@ public class GameManager : MonoBehaviour
                 temp.name = "Ameise" + i;
             }
         }
-<<<<<<< HEAD
-=======
+
         ant.AddComponent<AmeisenTypen.Arbeiter>();
+
         if (GameObject.Find("Overworld Camera"))
         {
             overworldCamera = GameObject.Find("Overworld Camera");
             underworldCamera = GameObject.Find("Underworld Camera");
             underworldCamera.SetActive(false);
         }
->>>>>>> c34aa27e8a8244f650ece0c7d792231dc6037159
     }
 
     public static void SwitchToUnderWorldCamera()

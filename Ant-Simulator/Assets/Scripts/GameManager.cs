@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
 
         antPool = GameObject.Find("AntPool");
         ant = GameObject.Find("Worker");
+
+        ArbeiterInstanzen.Add(ant);
         if (antPool != null)
         {
             for (int i = 0; i <= MaxAnts; i++)
@@ -51,6 +53,16 @@ public class GameManager : MonoBehaviour
                 temp.name = "Ameise" + i;
             }
         }
+<<<<<<< HEAD
+=======
+        ant.AddComponent<AmeisenTypen.Arbeiter>();
+        if (GameObject.Find("Overworld Camera"))
+        {
+            overworldCamera = GameObject.Find("Overworld Camera");
+            underworldCamera = GameObject.Find("Underworld Camera");
+            underworldCamera.SetActive(false);
+        }
+>>>>>>> c34aa27e8a8244f650ece0c7d792231dc6037159
     }
 
     public static void SwitchToUnderWorldCamera()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.AI;
 
 namespace AmeisenTypen
 {
@@ -9,16 +10,20 @@ namespace AmeisenTypen
     {
         public string Name { get; protected set; }
 
-        public string Gender { get; protected set; }
+        public string Gender { get; set; }
 
         public float Health { get; protected set; }
         public float MaxHealth { get; protected set; }
         public float Energy { get; protected set; }
         public float MaxEnergy { get; protected set; }
+
         public float Hunger { get; protected set; }
         public float MaxHunger { get; protected set; }
         public float Thirst { get; protected set; }
         public float MaxThirst { get; protected set; }
+
+        public Animator Animator;
+        public NavMeshAgent Agent;
 
         public string RandomName()
         {
@@ -30,6 +35,9 @@ namespace AmeisenTypen
             return Name;
         }
 
+        public enum CurrentState
+        { Bringing_Food, IsEating, fertilizes_the_queen, IsSleeping, Nothing, }
+
         public string RandomGender()
         {
             int temp = Random.Range(1, 3);
@@ -40,18 +48,27 @@ namespace AmeisenTypen
             return Gender;
         }
 
+        public IEnumerator Eat()
+        {
+            yield return new WaitForSeconds(10);                                                   //dauer wie lange sie essen.
+        }
+
         public float ReturnStat(string wantedStat)
         {
             switch (wantedStat)
             {
                 case "Health":
-                    return Health/MaxHealth;
+                    return Health / MaxHealth;
+
                 case "Energy":
-                    return Energy/MaxEnergy;
+                    return Energy / MaxEnergy;
+
                 case "Hunger":
-                    return Hunger/MaxHunger;
+                    return Hunger / MaxHunger;
+
                 case "Thirst":
-                    return Thirst/MaxThirst;
+                    return Thirst / MaxThirst;
+
                 default:
                     return 0;
             }
@@ -60,23 +77,143 @@ namespace AmeisenTypen
 
     public class Arbeiter : StandardAmeise
     {
+        private NavMeshAgent antAgent;
+        private GameObject queen;
+
+        private Vector3 foodLocation;
+        private Vector3 eatZone;
+        private Vector3 queenLocation;
+
+        public float hunger;
+
         private bool hungry;
         private bool thirsty;
-        private bool theChosenOne;
+        public bool TheChosenOne { get; set; }
+        private bool getFood;
+
+        [SerializeField]
+        private CurrentState state;
 
         private void Start()
         {
             Gender = RandomGender();
-            Name = RandomName();
+            if (GameManager.ArbeiterInstanzen.Count == 1)
+            {
+                Gender = "Male";
+            }
+            Name = RandomName() + " (arbeiter)";
             Health = 100;
             MaxHealth = Health;
-            Hunger = 100;
+
+            Hunger = 70;
+            hunger = Hunger;
             MaxHunger = Hunger;
             Energy = 100;
             MaxEnergy = Energy;
             Thirst = 100;
             MaxThirst = Thirst;
             this.gameObject.name = Name + " " + Gender;
+            antAgent = gameObject.GetComponent<NavMeshAgent>();
+            state = CurrentState.Nothing;
+            queen = GameObject.Find("Queen_New_Prefab");
+            queenLocation = queen.gameObject.transform.position;
+
+            Animator = GetComponent<Animator>();
+            Agent = GetComponent<NavMeshAgent>();
+
+        }
+
+        private void Update()
+        {
+            if (TheChosenOne)
+            {
+                state = CurrentState.fertilizes_the_queen;
+            }
+
+            switch (state)
+            {
+                case CurrentState.Bringing_Food:
+                    GetFood();
+                    break;
+
+                case CurrentState.IsEating:
+                    Eate();
+                    break;
+
+                case CurrentState.fertilizes_the_queen:
+                    Fertilizes_the_queen();
+                    break;
+
+                case CurrentState.IsSleeping:                                                            //To Do
+                    break;
+
+                case CurrentState.Nothing:
+                    antAgent.SetDestination(GameObject.Find("NothingLocation").transform.position);
+                    break;
+
+                default:
+                    break;
+            }
+            Animator.SetBool("isMoving", !antAgent.isStopped);
+        }
+
+        private void GetFood()
+        {
+            bool destinationSet = false;
+            float dist = Vector3.Distance(gameObject.transform.position, foodLocation);
+
+            if (!destinationSet)
+            {
+                antAgent.SetDestination(foodLocation);
+                destinationSet = true;
+            }
+
+            if (dist <= 1)
+            {
+                //Pick Up Script
+                destinationSet = false;
+            }
+        }                                                                       //ToDo!
+
+        private void Eate()
+        {
+            bool destinationset = false;
+            float dist = Vector3.Distance(gameObject.transform.position, eatZone);
+            if (!destinationset)
+            {
+                antAgent.SetDestination(eatZone);
+            }
+            if (dist <= 1)
+            {
+                StartCoroutine(Eat());
+                for (int i = 0; i < 2; i++)
+                {
+                    Hunger += Random.Range(20, 40);
+                }
+                if (Hunger > MaxHunger)
+                {
+                    Hunger = 100;
+                }
+                hungry = false;
+            }
+        }
+
+        private void Fertilizes_the_queen()
+        {
+            TheChosenOne = false;
+            bool destinationset = false;
+            float dist = Vector3.Distance(gameObject.transform.position, queenLocation);
+
+            if (!destinationset)
+            {
+                antAgent.SetDestination(queenLocation);
+            }
+            if (dist <= 2)
+            {
+                queen.GetComponent<KI_Rigina_formica>().SpawnLarva();
+                antAgent.SetDestination(transform.position);
+                state = CurrentState.Nothing;
+            }
         }
 
         //Hier musst du die logik für die arbeiter einfügen.
@@ -87,7 +224,7 @@ namespace AmeisenTypen
         public void Start()
         {
             Gender = RandomGender();
-            Name = RandomName();
+            Name = RandomName() + " (Soldat)";
             Health = 100;
             MaxHealth = Health;
             Hunger = 100;
@@ -96,8 +233,14 @@ namespace AmeisenTypen
             MaxEnergy = Energy;
             Thirst = 100;
             MaxThirst = Thirst;
+            this.gameObject.name = Name + " " + Gender;
+
+            Animator = GetComponent<Animator>();
+
         }
+
         private bool hungry;
         private bool thirsty;
+        private bool onPartol;
     }
 }

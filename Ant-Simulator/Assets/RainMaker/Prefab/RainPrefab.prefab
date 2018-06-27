@@ -104,7 +104,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 160098}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.03489685, y: 0.01, z: -0.08839083}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 413392}
@@ -175,7 +175,7 @@ MonoBehaviour:
   RainMistParticleSystem: {fileID: 19836512}
   RainMistThreshold: 0.5
   WindSound: {fileID: 8300000, guid: f9826f595784348498b57bcf6b2c8b1f, type: 3}
-  WindSoundVolumeModifier: 0.1
+  WindSoundVolumeModifier: 0.5
   WindZone: {fileID: 18204160}
   WindSpeedRange: {x: 50, y: 100, z: 500}
   WindChangeInterval: {x: 5, y: 30}

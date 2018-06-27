@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
 
         antPool = GameObject.Find("AntPool");
         ant = GameObject.Find("Worker");
+
+        ArbeiterInstanzen.Add(ant);
         if (antPool != null)
         {
             for (int i = 0; i <= MaxAnts; i++)
@@ -51,6 +53,7 @@ public class GameManager : MonoBehaviour
                 temp.name = "Ameise" + i;
             }
         }
+        ant.AddComponent<AmeisenTypen.Arbeiter>();
         if (GameObject.Find("Overworld Camera"))
         {
             overworldCamera = GameObject.Find("Overworld Camera");

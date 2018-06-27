@@ -10,11 +10,23 @@ public class KI_Rigina_formica : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < Larvae.transform.childCount; i++)                                          //Sucht Childs und Enqueue sie in die LarcaeQ
+        for (int i = 0; i < Larvae.transform.childCount; i++)                                          //Sucht Childs und Enqueue sie in die LarvaeQ
         {
             LarvaeQ.Enqueue(Larvae.transform.GetChild(i).gameObject);
             Larvae.transform.GetChild(i).gameObject.SetActive(false);
         }
+        StartCoroutine(Fruchtbarkeit());
+    }
+
+    private IEnumerator Fruchtbarkeit()
+    {
+        yield return new WaitForSeconds(7);
+
+        int i = Random.Range(0, GameManager.ArbeiterInstanzen.Count - 1);
+        GameObject temp = GameManager.ArbeiterInstanzen[i];
+        temp.GetComponent<AmeisenTypen.Arbeiter>().TheChosenOne = true;
+
+        StartCoroutine(Fruchtbarkeit());
     }
 
     public void SpawnLarva()

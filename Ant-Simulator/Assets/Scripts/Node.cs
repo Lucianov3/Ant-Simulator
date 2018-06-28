@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Node
 {
-    public bool walkable;
+    public bool canBuild;
     public Vector3 worldPosition;
 
     public int gCost;
@@ -16,7 +16,7 @@ public class Node
 
     public Node(bool walkable, Vector3 worldPosition, int x, int y)
     {
-        this.walkable = walkable;
+        this.canBuild = walkable;
         this.worldPosition = worldPosition;
         this.x = x;
         this.y = y;

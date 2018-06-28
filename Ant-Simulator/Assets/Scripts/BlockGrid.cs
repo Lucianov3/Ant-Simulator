@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +18,10 @@ public class BlockGrid : MonoBehaviour
         nodeDiameter = NodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(GridSizeWorld.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(GridSizeWorld.y / nodeDiameter);
+    }
+
+    private void Update()
+    {
         CreateGrid();
     }
 
@@ -91,7 +95,7 @@ public class BlockGrid : MonoBehaviour
             Node builderNode = NodeFromWorldPoint(BuilderAnt.position);
             foreach (Node node in blockGrid)
             {
-                if (node.walkable)
+                if (node.canBuild)
                 {
                     Gizmos.color = Color.green;
                 }

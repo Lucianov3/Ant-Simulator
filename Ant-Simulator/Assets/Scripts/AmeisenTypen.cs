@@ -16,6 +16,8 @@ namespace AmeisenTypen
         public float MaxHealth { get; protected set; }
         public float Energy { get; protected set; }
         public float MaxEnergy { get; protected set; }
+        public float Age { get; set; }
+        public float DeathMark { get; set; }
 
         public float Hunger { get; protected set; }
         public float MaxHunger { get; protected set; }
@@ -36,7 +38,7 @@ namespace AmeisenTypen
         }
 
         public enum CurrentState
-        { Bringing_Food, IsEating, fertilizes_the_queen, IsSleeping, Nothing, }
+        { Bringing_Food, IsEating, fertilizes_the_queen, IsSleeping, NothingToDo, Waiting, Dead }
 
         public string RandomGender()
         {
@@ -48,9 +50,10 @@ namespace AmeisenTypen
             return Gender;
         }
 
-        public IEnumerator Eat()
+        public float GenerateDethMark()
         {
-            yield return new WaitForSeconds(10);                                                   //dauer wie lange sie essen.
+            float temp = Random.Range(25, 50);
+            return temp;
         }
 
         public float ReturnStat(string wantedStat)
@@ -77,24 +80,49 @@ namespace AmeisenTypen
 
     public class Arbeiter : StandardAmeise
     {
+        public IEnumerator Eat()
+        {
+            yield return new WaitForSeconds(10);
+            for (int i = 0; i < 2; i++)
+            {
+                Hunger += Random.Range(20, 30);
+                hunger = Hunger;
+                GameManager.StorageFood -= 1;
+            }
+            if (Hunger > MaxHunger)
+            {
+                Hunger = 100;
+                hunger = Hunger;
+            }
+
+            State = CurrentState.NothingToDo;
+        }
+
+        public IEnumerator Death()
+        {
+            yield return new WaitForSeconds(5);
+            GameManager.Ants_Arbeiter.Enqueue(gameObject);
+
+            gameObject.SetActive(false);
+        }
+
         private NavMeshAgent antAgent;
         private GameObject queen;
 
-        private Vector3 foodLocation;
+        private GameObject Semen;
         private Vector3 eatZone;
         private Vector3 queenLocation;
 
         public float hunger;
 
-        private bool hungry;
         private bool thirsty;
         public bool TheChosenOne { get; set; }
-        private bool getFood;
+        public bool getFood { get; set; }
 
         [SerializeField]
-        private CurrentState state;
+        public CurrentState State { get; set; }
 
-        private void Start()
+        private void Awake()
         {
             Gender = RandomGender();
             if (GameManager.ArbeiterInstanzen.Count == 1)
@@ -104,8 +132,10 @@ namespace AmeisenTypen
             Name = RandomName() + " (arbeiter)";
             Health = 100;
             MaxHealth = Health;
+            DeathMark = GenerateDethMark();
+            Age = 0;
 
-            Hunger = 70;
+            Hunger = 100;
             hunger = Hunger;
             MaxHunger = Hunger;
             Energy = 100;
@@ -114,30 +144,51 @@ namespace AmeisenTypen
             MaxThirst = Thirst;
             this.gameObject.name = Name + " " + Gender;
             antAgent = gameObject.GetComponent<NavMeshAgent>();
-            state = CurrentState.Nothing;
+            State = CurrentState.NothingToDo;
             queen = GameObject.Find("Queen_New_Prefab");
             queenLocation = queen.gameObject.transform.position;
 
+            eatZone = GameObject.Find("Eatzone").transform.position;
+
             Animator = GetComponent<Animator>();
             Agent = GetComponent<NavMeshAgent>();
-
         }
 
         private void Update()
         {
+            if (Energy < 0)
+            {
+                Energy = 0;
+            }
             if (TheChosenOne)
             {
-                state = CurrentState.fertilizes_the_queen;
+                State = CurrentState.fertilizes_the_queen;
+            }
+            if (Hunger < 30 && !TheChosenOne && GameManager.StorageFood > 0)
+            {
+                State = CurrentState.IsEating;
+            }
+            if (getFood)
+            {
+                State = CurrentState.Bringing_Food;
+            }
+            if (Age >= DeathMark)
+            {
+                State = CurrentState.Dead;
+            }
+            if (Energy == 0 && State != CurrentState.fertilizes_the_queen)
+            {
+                State = CurrentState.IsSleeping;
             }
 
-            switch (state)
+            switch (State)
             {
                 case CurrentState.Bringing_Food:
                     GetFood();
                     break;
 
                 case CurrentState.IsEating:
-                    Eate();
+                    Eating();
                     break;
 
                 case CurrentState.fertilizes_the_queen:
@@ -147,8 +198,12 @@ namespace AmeisenTypen
                 case CurrentState.IsSleeping:                                                            //To Do
                     break;
 
-                case CurrentState.Nothing:
+                case CurrentState.NothingToDo:
                     antAgent.SetDestination(GameObject.Find("NothingLocation").transform.position);
+                    break;
+
+                case CurrentState.Dead:
+                    StartCoroutine(Death());
                     break;
 
                 default:
@@ -159,42 +214,57 @@ namespace AmeisenTypen
 
         private void GetFood()
         {
+            Semen = FoodScript.foodList[Random.Range(0, FoodScript.foodList.Count - 1)];
             bool destinationSet = false;
-            float dist = Vector3.Distance(gameObject.transform.position, foodLocation);
+            Semen = GameObject.Find("Semen");
+            float dist = Vector3.Distance(gameObject.transform.position, Semen.transform.position);
+            float distToEatzone = Vector3.Distance(transform.position, eatZone);
 
             if (!destinationSet)
             {
-                antAgent.SetDestination(foodLocation);
+                antAgent.SetDestination(Semen.transform.position);
                 destinationSet = true;
             }
 
             if (dist <= 1)
             {
-                //Pick Up Script
-                destinationSet = false;
+                Semen.transform.parent = gameObject.transform;
+                Semen.transform.position = transform.position + new Vector3(0, 0.3f, 0);
+                antAgent.SetDestination(eatZone);
+            }
+            if (distToEatzone <= 1)
+            {
+                Semen.transform.parent = null;
+                Semen.transform.position = eatZone + new Vector3(1, 0, 1);
+                Semen.name = "Food";
+                GameManager.StorageFood += 1;
+                if (GameManager.StorageFood <= 30 && FoodScript.foodList.Count > 0)
+                {
+                    GetFood();
+                }
+                else
+                {
+                    Energy -= 20;
+                    State = CurrentState.NothingToDo;
+                }
             }
         }                                                                       //ToDo!
 
-        private void Eate()
+        private void Eating()
         {
             bool destinationset = false;
             float dist = Vector3.Distance(gameObject.transform.position, eatZone);
+
             if (!destinationset)
             {
                 antAgent.SetDestination(eatZone);
             }
             if (dist <= 1)
             {
+                State = CurrentState.Waiting;
+                Energy -= 10;
+
                 StartCoroutine(Eat());
-                for (int i = 0; i < 2; i++)
-                {
-                    Hunger += Random.Range(20, 40);
-                }
-                if (Hunger > MaxHunger)
-                {
-                    Hunger = 100;
-                }
-                hungry = false;
             }
         }
 
@@ -212,7 +282,8 @@ namespace AmeisenTypen
             {
                 queen.GetComponent<KI_Rigina_formica>().SpawnLarva();
                 antAgent.SetDestination(transform.position);
-                state = CurrentState.Nothing;
+                Energy -= 20;
+                State = CurrentState.NothingToDo;
             }
         }
 
@@ -236,7 +307,6 @@ namespace AmeisenTypen
             this.gameObject.name = Name + " " + Gender;
 
             Animator = GetComponent<Animator>();
-
         }
 
         private bool hungry;

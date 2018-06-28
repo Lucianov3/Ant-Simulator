@@ -32,9 +32,13 @@ public class GameManager : MonoBehaviour
     private IEnumerator CheckForfood()
     {
         yield return new WaitForSeconds(360);
-        if (StorageFood == 0)
+        if (StorageFood == 0 && FoodScript.foodList.Count != 0)
         {
-            GameObject temp = ArbeiterInstanzen[Random.Range(0, ArbeiterInstanzen.Count - 1)];
+            GameObject temp;
+            do
+            {
+                temp = ArbeiterInstanzen[Random.Range(0, ArbeiterInstanzen.Count - 1)];
+            } while (temp.GetComponent<AmeisenTypen.Arbeiter>().State != AmeisenTypen.StandardAmeise.CurrentState.NothingToDo);
             temp.GetComponent<AmeisenTypen.Arbeiter>().getFood = true;
         }
         StartCoroutine(CheckForfood());
@@ -87,14 +91,10 @@ public class GameManager : MonoBehaviour
                 temp.name = "Soldat" + i;
             }
         }
-<<<<<<< HEAD
+
         Ant_Soldat.AddComponent<AmeisenTypen.Soldat>();
         ant.AddComponent<AmeisenTypen.Arbeiter>();
         StartCoroutine(CheckForfood());
-=======
-
-        //ant.AddComponent<AmeisenTypen.Arbeiter>();
->>>>>>> 2ba65e0b06e56cbdf0dc63379ac458ed62348dba
     }
 
     public static void SwitchToUnderWorldCamera()

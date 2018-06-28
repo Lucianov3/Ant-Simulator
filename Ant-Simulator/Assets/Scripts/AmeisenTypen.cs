@@ -87,6 +87,7 @@ namespace AmeisenTypen
             {
                 Hunger += Random.Range(20, 30);
                 hunger = Hunger;
+                GameManager.StorageFood -= 1;
             }
             if (Hunger > MaxHunger)
             {
@@ -94,7 +95,7 @@ namespace AmeisenTypen
                 hunger = Hunger;
             }
 
-            state = CurrentState.NothingToDo;
+            State = CurrentState.NothingToDo;
         }
 
         public IEnumerator Death()
@@ -119,7 +120,7 @@ namespace AmeisenTypen
         public bool getFood { get; set; }
 
         [SerializeField]
-        private CurrentState state;
+        public CurrentState State { get; set; }
 
         private void Awake()
         {
@@ -143,39 +144,44 @@ namespace AmeisenTypen
             MaxThirst = Thirst;
             this.gameObject.name = Name + " " + Gender;
             antAgent = gameObject.GetComponent<NavMeshAgent>();
-            state = CurrentState.NothingToDo;
+            State = CurrentState.NothingToDo;
             queen = GameObject.Find("Queen_New_Prefab");
             queenLocation = queen.gameObject.transform.position;
 
-<<<<<<< HEAD
             eatZone = GameObject.Find("Eatzone").transform.position;
-=======
+
             Animator = GetComponent<Animator>();
             Agent = GetComponent<NavMeshAgent>();
-
->>>>>>> 2ba65e0b06e56cbdf0dc63379ac458ed62348dba
         }
 
         private void Update()
         {
+            if (Energy < 0)
+            {
+                Energy = 0;
+            }
             if (TheChosenOne)
             {
-                state = CurrentState.fertilizes_the_queen;
+                State = CurrentState.fertilizes_the_queen;
             }
-            if (Hunger > 30 && !TheChosenOne && GameManager.StorageFood > 0)
+            if (Hunger < 30 && !TheChosenOne && GameManager.StorageFood > 0)
             {
-                state = CurrentState.IsEating;
+                State = CurrentState.IsEating;
             }
             if (getFood)
             {
-                state = CurrentState.Bringing_Food;
+                State = CurrentState.Bringing_Food;
             }
             if (Age >= DeathMark)
             {
-                state = CurrentState.Dead;
+                State = CurrentState.Dead;
+            }
+            if (Energy == 0 && State != CurrentState.fertilizes_the_queen)
+            {
+                State = CurrentState.IsSleeping;
             }
 
-            switch (state)
+            switch (State)
             {
                 case CurrentState.Bringing_Food:
                     GetFood();
@@ -231,13 +237,15 @@ namespace AmeisenTypen
                 Semen.transform.parent = null;
                 Semen.transform.position = eatZone + new Vector3(1, 0, 1);
                 Semen.name = "Food";
+                GameManager.StorageFood += 1;
                 if (GameManager.StorageFood <= 30 && FoodScript.foodList.Count > 0)
                 {
                     GetFood();
                 }
                 else
                 {
-                    state = CurrentState.NothingToDo;
+                    Energy -= 20;
+                    State = CurrentState.NothingToDo;
                 }
             }
         }                                                                       //ToDo!
@@ -253,7 +261,9 @@ namespace AmeisenTypen
             }
             if (dist <= 1)
             {
-                state = CurrentState.Waiting;
+                State = CurrentState.Waiting;
+                Energy -= 10;
+
                 StartCoroutine(Eat());
             }
         }
@@ -272,7 +282,8 @@ namespace AmeisenTypen
             {
                 queen.GetComponent<KI_Rigina_formica>().SpawnLarva();
                 antAgent.SetDestination(transform.position);
-                state = CurrentState.NothingToDo;
+                Energy -= 20;
+                State = CurrentState.NothingToDo;
             }
         }
 
@@ -296,7 +307,6 @@ namespace AmeisenTypen
             this.gameObject.name = Name + " " + Gender;
 
             Animator = GetComponent<Animator>();
-
         }
 
         private bool hungry;

@@ -8,12 +8,12 @@ public class ButtonScripts : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    public void switchToUnderWorldCamera()
+    public void SwitchToUnderWorldCamera()
     {
         GameManager.SwitchToUnderWorldCamera();
     }
 
-    public void switchToOverWorldCamera()
+    public void SwitchToOverWorldCamera()
     {
         GameManager.SwitchToOverWorldCamera();
     }
@@ -24,33 +24,48 @@ public class ButtonScripts : MonoBehaviour
         Application.Quit();
     }
 
-    public void optionsButton()
+    public void OptionsButton()
     {
         transform.parent.parent.GetComponent<Animator>().SetTrigger("MainMenuDissapearTrigger");
     }
 
-    public void optionsBackButton()
+    public void OptionsBackButton()
     {
         transform.parent.parent.GetComponent<Animator>().SetTrigger("OptionDissapearTrigger");
     }
 
-    public void creditsButton()
+    public void CreditsButton()
     {
         transform.parent.parent.GetComponent<Animator>().SetTrigger("CreditsTrigger");
     }
 
-    public void creditsBackButton()
+    public void CreditsBackButton()
     {
         transform.parent.parent.GetComponent<Animator>().SetTrigger("CreditsDissapearTrigger");
     }
 
-    public void startGameButton()
+    public void StartGameButton()
     {
         transform.parent.parent.GetComponent<Animator>().SetTrigger("StartGameTrigger");
     }
 
-    public void quitGameButton()
+    public void QuitGameButton()
     {
         transform.parent.parent.GetComponent<Animator>().SetTrigger("QuitGameTrigger");
+    }
+
+    public void CloseAntStatWindowButton()
+    {
+        GetComponent<Animator>().SetTrigger("CloseWindowTrigger");
+    }
+
+    public void OpenInGameMenu()
+    {
+        transform.parent.parent.GetComponent<Animator>().SetTrigger("OpenInGameMenuTrigger");
+    }
+
+    public void CloseInGameMenu()
+    {
+        transform.parent.parent.GetComponent<Animator>().SetTrigger("CloseInGameMenuTrigger");
     }
 }

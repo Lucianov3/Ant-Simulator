@@ -14,9 +14,9 @@ public class Node
     public Node parent;
 
 
-    public Node(bool walkable, Vector3 worldPosition, int x, int y)
+    public Node(bool buildable, Vector3 worldPosition, int x, int y)
     {
-        this.canBuild = walkable;
+        this.canBuild = buildable;
         this.worldPosition = worldPosition;
         this.x = x;
         this.y = y;

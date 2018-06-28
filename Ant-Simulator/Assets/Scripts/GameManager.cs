@@ -87,9 +87,14 @@ public class GameManager : MonoBehaviour
                 temp.name = "Soldat" + i;
             }
         }
+<<<<<<< HEAD
         Ant_Soldat.AddComponent<AmeisenTypen.Soldat>();
         ant.AddComponent<AmeisenTypen.Arbeiter>();
         StartCoroutine(CheckForfood());
+=======
+
+        //ant.AddComponent<AmeisenTypen.Arbeiter>();
+>>>>>>> 2ba65e0b06e56cbdf0dc63379ac458ed62348dba
     }
 
     public static void SwitchToUnderWorldCamera()

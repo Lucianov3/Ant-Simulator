@@ -19,7 +19,7 @@ public class UnderworldCameraScript : MonoBehaviour
     {
         GameManager.underworldCamera = gameObject;
         camera = GetComponent<Camera>();
-        transform.position = new Vector3(-MaxDistanceCameraToWall, -MaxDistanceCameraToWall, 0);
+        transform.position = new Vector3(0,0, -MaxDistanceCameraToWall);
         gameObject.SetActive(false);
 	}
 
@@ -45,17 +45,37 @@ public class UnderworldCameraScript : MonoBehaviour
         }
         if (Input.GetAxis("Mouse ScrollWheel") != 0)
         {
-            cameraZoom += new Vector3(Input.GetAxis("Mouse ScrollWheel") * ZoomSpeed, 0, 0);
+            cameraZoom += new Vector3(0, 0, Input.GetAxis("Mouse ScrollWheel") * ZoomSpeed);
         }
-        transform.Translate(cameraMovement.normalized * CameraMovementSpeed * transform.position.x*Time.unscaledDeltaTime);
+
+        transform.Translate(cameraMovement.normalized * CameraMovementSpeed * transform.position.z*Time.unscaledDeltaTime);
         transform.position += cameraZoom;
-        if (transform.position.x < -MaxDistanceCameraToWall)
+
+        if(transform.position.x >= 10)
         {
-            transform.position = new Vector3(-MaxDistanceCameraToWall, transform.position.y, transform.position.z);
+            transform.position = new Vector3(10, transform.position.y, transform.position.z);
         }
-        if (transform.position.x > -MinDistanceCameraToWall)
+        if (transform.position.x <= -10)
         {
-            transform.position = new Vector3(-MinDistanceCameraToWall, transform.position.y, transform.position.z);
+            transform.position = new Vector3(-10, transform.position.y, transform.position.z);
+        }
+
+        if (transform.position.y >= 18)
+        {
+            transform.position = new Vector3(transform.position.x, 18, transform.position.z);
+        }
+        if (transform.position.y <= -18)
+        {
+            transform.position = new Vector3(transform.position.x,-18, transform.position.z);
+        }
+
+        if (transform.position.z < -MaxDistanceCameraToWall)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -MaxDistanceCameraToWall);
+        }
+        if (transform.position.z > -MinDistanceCameraToWall)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -MinDistanceCameraToWall);
         }
     }
 }

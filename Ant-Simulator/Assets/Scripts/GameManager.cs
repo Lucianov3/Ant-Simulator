@@ -92,9 +92,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        Ant_Soldat.AddComponent<AmeisenTypen.Soldat>();
-        ant.AddComponent<AmeisenTypen.Arbeiter>();
-        StartCoroutine(CheckForfood());
+        //Ant_Soldat.AddComponent<AmeisenTypen.Soldat>();
+        //ant.AddComponent<AmeisenTypen.Arbeiter>();
+        //StartCoroutine(CheckForfood());
     }
 
     public static void SwitchToUnderWorldCamera()

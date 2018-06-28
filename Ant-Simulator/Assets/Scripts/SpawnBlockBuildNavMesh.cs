@@ -20,7 +20,7 @@ public class SpawnBlockBuildNavMesh : MonoBehaviour
         RoomPosition = new Vector3[5];
         isBuild = true;
         tempX = -29;
-        tempY = 29;
+        tempY = 29f;
     }
 
 	void Update ()
@@ -44,6 +44,7 @@ public class SpawnBlockBuildNavMesh : MonoBehaviour
                     tempY -= 2;
             }
             blocks[0, 14].SetActive(false);
+            blocks[0, 15].SetActive(false);
             PrepareRooms();
             isBuild = false;
         }

@@ -9,8 +9,9 @@ public class Pathfinding : MonoBehaviour
     public LayerMask layer;
     SpawnBlockBuildNavMesh spawnScript;
     bool a = true;
+    public int Index;
 
- private void Start()
+    private void Start()
     {
         blockGridScript = GetComponent<BlockGrid>();
         spawnScript = GetComponent<SpawnBlockBuildNavMesh>();
@@ -18,9 +19,20 @@ public class Pathfinding : MonoBehaviour
 
     private void Update()
     {
-        FindPath(start.position, spawnScript.RoomDestination[0].transform.position);
-        FindPath(start.position, spawnScript.RoomDestination[1].transform.position);
-        FindPath(start.position, spawnScript.RoomDestination[4].transform.position);
+        if (spawnScript.RoomDestination[0] != null)
+        {
+            Index = 0;
+            FindPath(start.position, spawnScript.RoomDestination[Index].transform.position);
+            Index = 1;
+            FindPath(start.position, spawnScript.RoomDestination[Index].transform.position);
+            Index = 2;
+            FindPath(start.position, spawnScript.RoomDestination[Index].transform.position);
+            Index = 3;
+            FindPath(start.position, spawnScript.RoomDestination[Index].transform.position);
+            Index = 4;
+            FindPath(start.position, spawnScript.RoomDestination[Index].transform.position);
+        }
+       
     }
 
    
@@ -50,7 +62,6 @@ public class Pathfinding : MonoBehaviour
             if(currentNode == destinationNode)
             {
                 GetPath(startNode, destinationNode);
-                print("lol");
                 return;
             }
 
@@ -109,7 +120,48 @@ public class Pathfinding : MonoBehaviour
 
         }
 
+        CarveRoomByIndex();
+
         blockGridScript.path = path;
+    }
+
+    void CarveRoomByIndex()
+    {
+        if (Index == 0)
+        {
+            while(GameObject.Find("Queen") != null)
+            {
+                GameObject.Find("Queen").SetActive(false);
+            }
+        }
+        else if (Index == 1)
+        {
+            while (GameObject.Find("1") != null)
+            {
+                GameObject.Find("1").SetActive(false);
+            }
+        }
+        else if (Index == 2)
+        {
+            while (GameObject.Find("2") != null)
+            {
+                GameObject.Find("2").SetActive(false);
+            }
+        }
+        else if (Index == 3)
+        {
+            while (GameObject.Find("3") != null)
+            {
+                GameObject.Find("3").SetActive(false);
+            }
+        }
+        else
+        {
+             while (GameObject.Find("Food") != null)
+              {
+                 GameObject.Find("Food").SetActive(false);
+             }
+        }
     }
 
 }

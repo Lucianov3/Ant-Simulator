@@ -173,6 +173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4814950814416752}
   - component: {fileID: 195429192703394206}
+  - component: {fileID: 95330433532246304}
   m_Layer: 0
   m_Name: worker
   m_TagString: Untagged
@@ -989,6 +990,24 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1742043851145760}
   m_Mesh: {fileID: 4300014, guid: 424e8ac686ffaf249a799d9c008a6b5c, type: 3}
+--- !u!95 &95330433532246304
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1677450662147332}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: be3215aea8c7a1843acde018055a1fc0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!195 &195429192703394206
 NavMeshAgent:
   m_ObjectHideFlags: 1

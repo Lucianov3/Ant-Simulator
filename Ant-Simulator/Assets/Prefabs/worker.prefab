@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4650789449753748}
   - component: {fileID: 33288139058283088}
   - component: {fileID: 23343265990789198}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Worker_initialShadingGroup_polySurface11_polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4212608056434474}
   - component: {fileID: 33043606889677154}
   - component: {fileID: 23067489770793384}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Soldier_initialShadingGroup_Soldier_polySurface12_Soldier_polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4524417324008764}
   - component: {fileID: 33692329910129260}
   - component: {fileID: 23485448513000900}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Worker_initialShadingGroup_polySurface8_polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4374937110249062}
   - component: {fileID: 33549227712237514}
   - component: {fileID: 23814363440695804}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Worker_initialShadingGroup_Worker_pCube1_polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4288819555108942}
   - component: {fileID: 33889412039519022}
   - component: {fileID: 23683675196988004}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Soldier_initialShadingGroup_Soldier_polySurface10_Soldier_polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 4587753682580356}
   - component: {fileID: 33763619213535708}
   - component: {fileID: 23062993926880446}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Soldier_initialShadingGroup_Soldier_polySurface11_Soldier_polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 4569899282945740}
   - component: {fileID: 33436162989155550}
   - component: {fileID: 23298181862750440}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Soldier_initialShadingGroup_Soldier_polySurface9_Soldier_polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 4824091279326368}
   - component: {fileID: 33714880656330660}
   - component: {fileID: 23898500759051434}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Worker_initialShadingGroup_polySurface12_polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 4938350038648708}
   - component: {fileID: 33242748655851180}
   - component: {fileID: 23577702234008848}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Soldier_initialShadingGroup_Soldier_polySurface8_Soldier_polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 4814950814416752}
   - component: {fileID: 195429192703394206}
   - component: {fileID: 95330433532246304}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: worker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 4720187743858242}
   - component: {fileID: 33578443293957526}
   - component: {fileID: 23153872669133878}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Worker_initialShadingGroup_polySurface13_polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 4140878472430842}
   - component: {fileID: 33997523874277852}
   - component: {fileID: 23222432227469964}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Worker_initialShadingGroup_polySurface10_polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 4937435395176854}
   - component: {fileID: 33252176489757024}
   - component: {fileID: 23748849535525906}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Worker_initialShadingGroup_polySurface9_polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 4419977850276480}
   - component: {fileID: 33176848227435250}
   - component: {fileID: 23227294469692040}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Soldier_initialShadingGroup_Soldier_polySurface13_Soldier_polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1028,4 +1028,4 @@ NavMeshAgent:
   m_Height: 0.37
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0

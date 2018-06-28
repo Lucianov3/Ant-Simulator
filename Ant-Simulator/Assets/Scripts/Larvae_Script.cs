@@ -8,7 +8,7 @@ public class Larvae_Script : MonoBehaviour
 
     private IEnumerator Bruht()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(1080);
 
         if (Mathf.RoundToInt((GameManager.CurrentAnts * 20) / 100) <= GameManager.SoldatenInstanzen.Count)
         {

@@ -18,6 +18,7 @@ public class BlockGrid : MonoBehaviour
         nodeDiameter = NodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(GridSizeWorld.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(GridSizeWorld.y / nodeDiameter);
+        CreateGrid();
     }
 
     private void Update()
@@ -71,8 +72,8 @@ public class BlockGrid : MonoBehaviour
             for (int y = 0; y < gridSizeY; y++)
             {
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + NodeRadius) + Vector3.up * (y * nodeDiameter + NodeRadius);
-                bool walkable = !(Physics.CheckSphere(worldPoint, .2f, NoTunnelMask));
-                blockGrid[x, y] = new Node(walkable, worldPoint, x, y);
+                bool buildable = Physics.CheckSphere(worldPoint, .2f, NoTunnelMask);
+                blockGrid[x, y] = new Node(buildable, worldPoint, x, y);
             }
         }
     }

@@ -18,6 +18,7 @@ public class BlockGrid : MonoBehaviour
         nodeDiameter = NodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(GridSizeWorld.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(GridSizeWorld.y / nodeDiameter);
+        CreateGrid();
     }
 
     private void Update()

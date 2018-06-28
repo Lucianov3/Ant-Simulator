@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - NoBlock
+  - Room2
+  - QueenRoom
+  - FoodRoom
+  - Room1
+  - Room3
   layers:
   - Default
   - TransparentFX
@@ -13,10 +19,17 @@ TagManager:
   - UI
   - 
   - 
+<<<<<<< HEAD
+  - 
+  - 
+  - 
+  - NoTunnel
+=======
   - Ant
   - Ground
   - Semen
   - 
+>>>>>>> df55a66fcc1fa57e0b87dc32be0394c2739d2278
   - 
   - 
   - 

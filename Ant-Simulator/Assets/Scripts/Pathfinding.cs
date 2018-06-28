@@ -6,23 +6,25 @@ public class Pathfinding : MonoBehaviour
 {
     BlockGrid blockGridScript;
     public Transform start;
-    public Transform destination;
+    public LayerMask layer;
+    SpawnBlockBuildNavMesh spawnScript;
     bool a = true;
+
+ private void Start()
+    {
+        blockGridScript = GetComponent<BlockGrid>();
+        spawnScript = GetComponent<SpawnBlockBuildNavMesh>();
+    }
 
     private void Update()
     {
-        if (a)
-        {
-            FindPath(start.position, destination.position);
-            a = false;
-        }
+        FindPath(start.position, spawnScript.RoomDestination[0].transform.position);
+        FindPath(start.position, spawnScript.RoomDestination[1].transform.position);
+        FindPath(start.position, spawnScript.RoomDestination[4].transform.position);
     }
 
-    private void Start()
-    {
-        blockGridScript = GetComponent<BlockGrid>();
-    }
-    void FindPath(Vector3 start, Vector3 destination)
+   
+    public void FindPath(Vector3 start, Vector3 destination)
     {
         Node startNode = blockGridScript.NodeFromWorldPoint(start);
         Node destinationNode = blockGridScript.NodeFromWorldPoint(destination);
@@ -48,12 +50,13 @@ public class Pathfinding : MonoBehaviour
             if(currentNode == destinationNode)
             {
                 GetPath(startNode, destinationNode);
+                print("lol");
                 return;
             }
 
             foreach (Node neighbour in blockGridScript.GetNeighbours(currentNode))
             {
-                if (!neighbour.walkable || closedList.Contains(neighbour))
+                if (!neighbour.canBuild || closedList.Contains(neighbour))
                 {
                     continue;
                 }
@@ -96,8 +99,17 @@ public class Pathfinding : MonoBehaviour
         }
         path.Reverse();
 
+        for (int i = 0; i < path.Count; i++)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(path[i].worldPosition - new Vector3(0, 0, +2), transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layer))
+            {
+                hit.transform.gameObject.SetActive(false);
+            }
+
+        }
+
         blockGridScript.path = path;
-        print(path.Count);
     }
 
 }

@@ -10,23 +10,25 @@ public class Larvae_Script : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
 
-        GameObject temp = GameManager.Ants.Dequeue();                                               //Ameise wird aus der Queue genommen
-
-        if (Mathf.RoundToInt((GameManager.CurrentAnts * 20) / 100) <= GameManager.SoldatenInstanzen.Count + 1)
+        if (Mathf.RoundToInt((GameManager.CurrentAnts * 20) / 100) <= GameManager.SoldatenInstanzen.Count)
         {
-            temp.AddComponent<AmeisenTypen.Arbeiter>();
+            GameObject temp1 = GameManager.Ants_Arbeiter.Dequeue();
+            temp1.AddComponent<AmeisenTypen.Arbeiter>();
             GameManager.CurrentAnts++;
-            GameManager.ArbeiterInstanzen.Add(temp);
+            GameManager.ArbeiterInstanzen.Add(temp1);
+            temp1.transform.SetPositionAndRotation(this.gameObject.transform.position + new Vector3(0, 0, 0), Quaternion.Euler(0f, 0f, 0f));
+            temp1.SetActive(true);
         }
         else
         {
-            temp.AddComponent<AmeisenTypen.Soldat>();
+            GameObject temp2 = GameManager.Ants_Soldaten.Dequeue();                                               //Ameise wird aus der Queue genommen
+            temp2.AddComponent<AmeisenTypen.Soldat>();
             GameManager.CurrentAnts++;
-            GameManager.SoldatenInstanzen.Add(temp);
+            GameManager.SoldatenInstanzen.Add(temp2);
+            temp2.transform.SetPositionAndRotation(this.gameObject.transform.position + new Vector3(0, 0, 0), Quaternion.Euler(0f, 0f, 0f));
+            temp2.SetActive(true);
         }
-        temp.SetActive(true);
 
-        temp.transform.SetPositionAndRotation(this.gameObject.transform.position + new Vector3(0, 0, 0), Quaternion.Euler(0f, 0f, 0f));
         KI_Rigina_formica.LarvaeQ.Enqueue(this.gameObject);
         this.gameObject.SetActive(false);
     }

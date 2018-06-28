@@ -6,7 +6,9 @@ using System.IO;
 public class GameManager : MonoBehaviour
 {
     public static int MaxAnts = 98;                             //Wird mit den anfang ameisen addiert
-
+    public static int BedCounter;
+    public static int BedCounter2;
+    public static int BedCounter3;
     public static int CurrentAnts = 3;                           //Drei ameisen am anfang 1xKönigen,1xArbeiter,1xSoldat
 
     [SerializeField]
@@ -23,9 +25,15 @@ public class GameManager : MonoBehaviour
     public static List<GameObject> ArbeiterInstanzen = new List<GameObject>();
     public static List<GameObject> SoldatenInstanzen = new List<GameObject>();
 
+    public static List<Vector3> NothingToDoV3 = new List<Vector3>();                                                //Muss noch gefüllt werden!!!!!!!
+
+    [SerializeField]
+    public Vector3[] filllist;
+
     private GameObject ant;
     private GameObject Ant_Soldat;
     private GameObject antPool;
+
     public static GameObject overworldCamera;
     public static GameObject underworldCamera;
 
@@ -51,6 +59,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        for (int i = 0; i < filllist.Length; i++)
+        {
+            Vector3 temp = filllist[i];
+            NothingToDoV3.Add(temp);
+        }
         StreamReader readerM = new StreamReader(Application.dataPath + @"\TextDateien\NamenM.txt");
         StreamReader readerW = new StreamReader(Application.dataPath + @"\TextDateien\NamenW.txt");
 

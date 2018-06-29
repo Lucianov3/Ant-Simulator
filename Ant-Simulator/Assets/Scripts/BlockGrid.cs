@@ -4,25 +4,19 @@ using UnityEngine;
 
 public class BlockGrid : MonoBehaviour
 {
-    public Transform BuilderAnt;
     public float NodeRadius;
-    public Vector2 GridSizeWorld;
+    public Vector2 GridSize;
     public LayerMask NoTunnelMask;
     Node[,] blockGrid;
     float nodeDiameter;
-    int gridSizeX;
-    int gridSizeY;
+    int gridX;
+    int gridY;
 
     private void Start()
     {
         nodeDiameter = NodeRadius * 2;
-        gridSizeX = Mathf.RoundToInt(GridSizeWorld.x / nodeDiameter);
-        gridSizeY = Mathf.RoundToInt(GridSizeWorld.y / nodeDiameter);
-        CreateGrid();
-    }
-
-    private void Update()
-    {
+        gridX = Mathf.RoundToInt(GridSize.x / nodeDiameter);
+        gridY = Mathf.RoundToInt(GridSize.y / nodeDiameter);
         CreateGrid();
     }
 
@@ -30,46 +24,46 @@ public class BlockGrid : MonoBehaviour
     {
         List<Node> neighbours = new List<Node>();
 
-        int checkX;
-        int checkY;
+        int x;
+        int y;
 
-        checkX = node.x + 1;
-        checkY = node.y;
-        Check(checkX, checkY, neighbours);
+        x = node.x + 1;
+        y = node.y;
+        Check(x, y, neighbours);
 
-        checkX = node.x - 1;
-        checkY = node.y;
-        Check(checkX, checkY, neighbours);
+        x = node.x - 1;
+        y = node.y;
+        Check(x, y, neighbours);
 
-        checkX = node.x;
-        checkY = node.y + 1;
-        Check(checkX, checkY, neighbours);
+        x = node.x;
+        y = node.y + 1;
+        Check(x, y, neighbours);
 
-        checkX = node.x;
-        checkY = node.y - 1;
-        Check(checkX, checkY, neighbours);
+        x = node.x;
+        y = node.y - 1;
+        Check(x, y, neighbours);
         return neighbours;
     }
-    public Node NodeFromWorldPoint(Vector3 worldPosition)
+    public Node NodeFromWorldPoint(Vector3 Position)
     {
-        float percentX = (worldPosition.x + GridSizeWorld.x / 2) / GridSizeWorld.x;
-        float percentY = (worldPosition.y + GridSizeWorld.y / 2) / GridSizeWorld.y;
+        float percentX = (Position.x + GridSize.x / 2) / GridSize.x;
+        float percentY = (Position.y + GridSize.y / 2) / GridSize.y;
         percentX = Mathf.Clamp01(percentX);
         percentY = Mathf.Clamp01(percentY);
 
-        int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
-        int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
+        int x = Mathf.RoundToInt((gridX - 1) * percentX);
+        int y = Mathf.RoundToInt((gridY - 1) * percentY);
         return blockGrid[x, y];
     }
 
-    void CreateGrid()
+    public void CreateGrid()
     {
-        blockGrid = new Node[gridSizeX, gridSizeY];
-        Vector3 worldBottomLeft = transform.position - Vector3.right * GridSizeWorld.x / 2 - Vector3.up * GridSizeWorld.y / 2;
+        blockGrid = new Node[gridX, gridY];
+        Vector3 worldBottomLeft = transform.position - Vector3.right * GridSize.x / 2 - Vector3.up * GridSize.y / 2;
 
-        for (int x = 0; x < gridSizeX; x++)
+        for (int x = 0; x < gridX; x++)
         {
-            for (int y = 0; y < gridSizeY; y++)
+            for (int y = 0; y < gridY; y++)
             {
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + NodeRadius) + Vector3.up * (y * nodeDiameter + NodeRadius);
                 bool buildable = Physics.CheckSphere(worldPoint, .2f, NoTunnelMask);
@@ -80,46 +74,9 @@ public class BlockGrid : MonoBehaviour
 
     void Check(int checkX, int checkY, List<Node> list)
     {
-        if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
+        if (checkX >= 1 && checkX < gridX - 1 && checkY >= 1 && checkY < gridY - 1)
         {
             list.Add(blockGrid[checkX, checkY]);
-        }
-    }
-
-    public List<Node> path;
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(transform.position, new Vector3(GridSizeWorld.x, GridSizeWorld.y, 1));
-
-        if (blockGrid != null)
-        {
-            Node builderNode = NodeFromWorldPoint(BuilderAnt.position);
-            foreach (Node node in blockGrid)
-            {
-                if (node.canBuild)
-                {
-                    Gizmos.color = Color.green;
-                }
-                else
-                {
-                    Gizmos.color = Color.red;
-                }
-
-                if (path != null)
-                {
-                    if (path.Contains(node))
-                    {
-                        Gizmos.color = Color.yellow;
-                    }
-                }
-
-                if (builderNode == node)
-                {
-                    Gizmos.color = Color.blue;
-                }
-
-                Gizmos.DrawCube(node.worldPosition, Vector3.one * (nodeDiameter -.1f));
-            }
         }
     }
 }

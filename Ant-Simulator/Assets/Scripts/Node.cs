@@ -5,7 +5,7 @@ using UnityEngine;
 public class Node
 {
     public bool canBuild;
-    public Vector3 worldPosition;
+    public Vector3 Position;
 
     public int gCost;
     public int hCost;
@@ -14,16 +14,16 @@ public class Node
     public Node parent;
 
 
-    public Node(bool buildable, Vector3 worldPosition, int x, int y)
+    public Node(bool buildable, Vector3 Position, int x, int y)
     {
         this.canBuild = buildable;
-        this.worldPosition = worldPosition;
+        this.Position = Position;
         this.x = x;
         this.y = y;
 
     }
 
-    public int fCost
+    public int FCost
     {
         get
         {

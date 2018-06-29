@@ -13,8 +13,7 @@ public class Pathfinding : MonoBehaviour
     public int Index;
     GameObject wall;
     NavMeshSurface surface;
-    bool hasBuild;
-    
+
 
     private void Start()
     {
@@ -27,7 +26,7 @@ public class Pathfinding : MonoBehaviour
 
     private void Update()
     {
-        if(spawnScript.RoomDestination[0] != null && !hasBuild)
+        if(spawnScript.RoomDestination[0] != null)
         {
             Index = 0;
             FindPath(start.position, spawnScript.RoomDestination[0].transform.position);
@@ -39,11 +38,10 @@ public class Pathfinding : MonoBehaviour
             FindPath(start.position, spawnScript.RoomDestination[3].transform.position);
             Index = 4;
             FindPath(start.position, spawnScript.RoomDestination[4].transform.position);
-            blockGridScript.CreateGrid();
-            surface.BuildNavMesh();
-            hasBuild = true;
         }
+       
     }
+
 
     public void FindPath(Vector3 start, Vector3 destination)
     {
@@ -130,6 +128,8 @@ public class Pathfinding : MonoBehaviour
         }
 
         CarveRoomByIndex();
+
+        blockGridScript.path = path;
     }
 
     void CarveRoomByIndex()
@@ -169,6 +169,8 @@ public class Pathfinding : MonoBehaviour
                  GameObject.Find("Food").SetActive(false);
              }
         }
+
+        surface.BuildNavMesh();
     }
 
 }

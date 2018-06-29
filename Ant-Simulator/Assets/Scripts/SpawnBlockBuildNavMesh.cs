@@ -17,7 +17,7 @@ public class SpawnBlockBuildNavMesh : MonoBehaviour
     {
         blocks = new GameObject[30, 30];
         RoomDestination = new GameObject[5];
-        RoomPosition = new Vector3[5];
+           RoomPosition = new Vector3[5];
         isBuild = true;
         tempX = -29;
         tempY = 29f;

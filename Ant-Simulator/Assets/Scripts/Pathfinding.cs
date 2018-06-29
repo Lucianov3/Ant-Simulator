@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Pathfinding : MonoBehaviour
 {
@@ -11,37 +10,14 @@ public class Pathfinding : MonoBehaviour
     SpawnBlockBuildNavMesh spawnScript;
     bool a = true;
     public int Index;
-    GameObject wall;
-    NavMeshSurface surface;
-    bool hasBuild;
-    
 
     private void Start()
     {
         blockGridScript = GetComponent<BlockGrid>();
         spawnScript = GetComponent<SpawnBlockBuildNavMesh>();
-        wall = GameObject.Find("Wall");
-        surface = wall.GetComponent<NavMeshSurface>();
     }
 
-    private void Update()
-    {
-        if(spawnScript.RoomDestination[0] != null && !hasBuild)
-        {
-            Index = 1;
-            FindPath(start.position, spawnScript.RoomDestination[1].transform.position);
-            Index = 2;
-            FindPath(start.position, spawnScript.RoomDestination[2].transform.position);
-            Index = 3;
-            FindPath(start.position, spawnScript.RoomDestination[3].transform.position);
-            Index = 4;
-            FindPath(start.position, spawnScript.RoomDestination[4].transform.position);
-            blockGridScript.CreateGrid();
-            surface.BuildNavMesh();
-            hasBuild = true;
-        }
-    }
-
+   
     public void FindPath(Vector3 start, Vector3 destination)
     {
         Node Start = blockGridScript.NodeFromWorldPoint(start);
@@ -127,6 +103,8 @@ public class Pathfinding : MonoBehaviour
         }
 
         CarveRoomByIndex();
+
+        blockGridScript.path = path;
     }
 
     void CarveRoomByIndex()

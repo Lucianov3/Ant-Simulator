@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KI_Rigina_formica : MonoBehaviour
 {
-    public static GameObject Larvae;
+    public GameObject Larvae;
 
     public static Queue<GameObject> LarvaeQ = new Queue<GameObject>();
 

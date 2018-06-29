@@ -30,6 +30,8 @@ namespace AmeisenTypen
         public Animator Animator;
         public NavMeshAgent Agent;
 
+        public Vector3 tempDestination;
+
         public string RandomName()
         {
             if (Gender == "Male")
@@ -210,6 +212,7 @@ namespace AmeisenTypen
             antAgent = gameObject.GetComponent<NavMeshAgent>();
             State = CurrentState.Waiting;
             queen = GameObject.Find("Queen_New_Prefab");
+            queen.AddComponent<AmeisenTypen.Königen>();
             queenLocation = queen.gameObject.transform.position;
             Astar = GameObject.Find("A*");
             eatZone = Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[4];                                                     //Position ändern
@@ -290,6 +293,7 @@ namespace AmeisenTypen
                 case CurrentState.NothingToDo:
                     Vector3 temp = GameManager.NothingToDoV3[UnityEngine.Random.Range(0, GameManager.NothingToDoV3.Count - 1)];
                     DistNothing = Vector3.Distance(transform.position, temp);
+                    antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = temp;
                     antAgent.SetDestination(temp);
 
                     State = CurrentState.Waiting;
@@ -327,6 +331,7 @@ namespace AmeisenTypen
                     if (GameManager.BedCounter < 33)
                     {
                         float dist = Vector2.Distance(transform.position, BedRoom1);
+                        antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = BedRoom1;
                         antAgent.SetDestination(BedRoom1);
                         if (dist <= 1.2)
                         {
@@ -344,6 +349,7 @@ namespace AmeisenTypen
                     if (GameManager.BedCounter2 < 33)
                     {
                         float dist = Vector2.Distance(transform.position, BedRoom2);
+                        antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = BedRoom2;
                         antAgent.SetDestination(BedRoom2);
                         if (dist <= 1.2)
                         {
@@ -361,6 +367,7 @@ namespace AmeisenTypen
                     if (GameManager.BedCounter3 < 34)
                     {
                         float dist = Vector2.Distance(transform.position, BedRoom3);
+                        antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = BedRoom3;
                         antAgent.SetDestination(BedRoom3);
                         if (dist <= 1.2)
                         {
@@ -389,6 +396,7 @@ namespace AmeisenTypen
 
             if (!destinationSet)
             {
+                antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = Semen.transform.position;
                 antAgent.SetDestination(Semen.transform.position);
                 destinationSet = true;
             }
@@ -397,6 +405,7 @@ namespace AmeisenTypen
             {
                 Semen.transform.parent = gameObject.transform;
                 Semen.transform.position = transform.position + new Vector3(0, 0.3f, 0);
+                antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = eatZone;
                 antAgent.SetDestination(eatZone);
             }
             if (distToEatzone <= 1)
@@ -421,10 +430,12 @@ namespace AmeisenTypen
         {
             bool destinationset = false;
             float dist = Vector3.Distance(transform.position, lake.transform.position);
+            antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = lake.transform.position;
             antAgent.SetDestination(lake.transform.position);
 
             if (!destinationset)
             {
+                antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = eatZone;
                 antAgent.SetDestination(eatZone);
             }
             if (dist <= 1.5)
@@ -442,6 +453,7 @@ namespace AmeisenTypen
 
             if (!destinationset)
             {
+                antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = eatZone;
                 antAgent.SetDestination(eatZone);
             }
             if (dist <= 1)
@@ -461,11 +473,13 @@ namespace AmeisenTypen
 
             if (!destinationset)
             {
+                antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = queenLocation;
                 antAgent.SetDestination(queenLocation);
             }
             if (dist <= 2)
             {
                 queen.GetComponent<KI_Rigina_formica>().SpawnLarva();
+                antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = transform.position;
                 antAgent.SetDestination(transform.position);
                 Energy -= 20;
                 State = CurrentState.NothingToDo;
@@ -507,21 +521,32 @@ namespace AmeisenTypen
         private Pathfinding pathfinding;
         private float Dist;
 
+
+        bool bla;
+
         private void Start()
         {
             Astar = GameObject.Find("A*");
             pathfinding = Astar.GetComponent<Pathfinding>();
+            queenAgent = GetComponent<NavMeshAgent>();
         }
 
         private void Awake()
         {
-            pathfinding.FindPath(pathfinding.start.position, Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomDestination[0].transform.position);
-            queenAgent.SetDestination(Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[0]);
-            KI_Rigina_formica.Larvae.transform.position = Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[0];
+            
         }
 
         private void Update()
         {
+            if (Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomDestination != null && !bla)
+            {
+                pathfinding.Index = 0;
+                pathfinding.FindPath(pathfinding.start.position, Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomDestination[0].transform.position);
+                queenAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[0];
+                queenAgent.SetDestination(Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[0]);
+                GetComponent<KI_Rigina_formica>().Larvae.transform.position = Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[0];
+                bla = true;
+            }
             Dist = Vector3.Distance(transform.position, Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[0]);
             if (Dist <= 0.5)
             {

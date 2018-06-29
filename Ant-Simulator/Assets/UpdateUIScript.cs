@@ -26,7 +26,7 @@ public class UpdateUIScript : MonoBehaviour
                 text.text = GameManager.CurrentAnts.ToString();
                 break;
             case UITypes.FoodCount:
-                //text.text = GameManager.storageFood.ToString();
+                text.text = GameManager.StorageFood.ToString();
                 break;
         }
     }

@@ -13,6 +13,7 @@ public class Pathfinding : MonoBehaviour
     public int Index;
     GameObject wall;
     NavMeshSurface surface;
+    bool hasBuild;
 
 
     private void Start()
@@ -21,7 +22,6 @@ public class Pathfinding : MonoBehaviour
         spawnScript = GetComponent<SpawnBlockBuildNavMesh>();
         wall = GameObject.Find("Wall");
         surface = wall.GetComponent<NavMeshSurface>();
-        hasBuild = false;
     }
 
     private void Update()

@@ -17,71 +17,53 @@ public class Pathfinding : MonoBehaviour
         spawnScript = GetComponent<SpawnBlockBuildNavMesh>();
     }
 
-    private void Update()
-    {
-        if (spawnScript.RoomDestination[0] != null)
-        {
-            Index = 0;
-            FindPath(start.position, spawnScript.RoomDestination[Index].transform.position);
-            Index = 1;
-            FindPath(start.position, spawnScript.RoomDestination[Index].transform.position);
-            Index = 2;
-            FindPath(start.position, spawnScript.RoomDestination[Index].transform.position);
-            Index = 3;
-            FindPath(start.position, spawnScript.RoomDestination[Index].transform.position);
-            Index = 4;
-            FindPath(start.position, spawnScript.RoomDestination[Index].transform.position);
-        }
-       
-    }
-
    
     public void FindPath(Vector3 start, Vector3 destination)
     {
-        Node startNode = blockGridScript.NodeFromWorldPoint(start);
-        Node destinationNode = blockGridScript.NodeFromWorldPoint(destination);
+        Node Start = blockGridScript.NodeFromWorldPoint(start);
+        Node Destination = blockGridScript.NodeFromWorldPoint(destination);
 
-        List<Node> openList = new List<Node>();
-        HashSet<Node> closedList = new HashSet<Node>();
-        openList.Add(startNode);
+        List<Node> open = new List<Node>();
+        HashSet<Node> closed = new HashSet<Node>();
+        open.Add(Start);
 
-        while (openList.Count > 0)
+        while (open.Count > 0)
         {
-            Node currentNode = openList[0];
-            for (int i = 1; i < openList.Count; i++)
+            Node current = open[0];
+            for (int i = 1; i < open.Count; i++)
             {
-                if (openList[i].fCost < currentNode.fCost || openList[i].fCost == currentNode.fCost && openList[i].hCost < currentNode.hCost)
+                if (open[i].FCost < current.FCost || open[i].FCost == current.FCost && open[i].hCost < current.hCost)
                 {
-                    currentNode = openList[i];
+                    current = open[i];
                 }
             }
 
-            openList.Remove(currentNode);
-            closedList.Add(currentNode);
+            open.Remove(current);
+            closed.Add(current);
 
-            if(currentNode == destinationNode)
+            if(current == Destination)
             {
-                GetPath(startNode, destinationNode);
+                GetPath(Start, Destination);
                 return;
             }
 
-            foreach (Node neighbour in blockGridScript.GetNeighbours(currentNode))
+            foreach (Node neighbour in blockGridScript.GetNeighbours(current))
             {
-                if (!neighbour.canBuild || closedList.Contains(neighbour))
+                if (!neighbour.canBuild || closed.Contains(neighbour))
                 {
                     continue;
                 }
 
-                int costToNeighbour = currentNode.gCost + 10;
-                if (costToNeighbour < neighbour.gCost || !openList.Contains(neighbour))
+                int costToNeighbour = current.gCost + 10;
+                if (costToNeighbour < neighbour.gCost || !open.Contains(neighbour))
                 {
                     neighbour.gCost = costToNeighbour;
-                    neighbour.hCost = GetDistance(neighbour, destinationNode);
-                    neighbour.parent = currentNode;
+                    neighbour.hCost = GetDistance(neighbour, Destination);
+                    neighbour.parent = current;
 
-                    if (!openList.Contains(neighbour))
+                    if (!open.Contains(neighbour))
                     {
-                        openList.Add(neighbour);
+                        open.Add(neighbour);
                     }
                 }
             }
@@ -113,7 +95,7 @@ public class Pathfinding : MonoBehaviour
         for (int i = 0; i < path.Count; i++)
         {
             RaycastHit hit;
-            if (Physics.Raycast(path[i].worldPosition - new Vector3(0, 0, +2), transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layer))
+            if (Physics.Raycast(path[i].Position - new Vector3(0, 0, +2), transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layer))
             {
                 hit.transform.gameObject.SetActive(false);
             }

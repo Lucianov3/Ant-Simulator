@@ -1,28 +1,17 @@
 fileFormatVersion: 2
-guid: 7a46d718b2a05954ab63a21c842e25b0
+guid: 8bd6198daf5a4964e9a3b2da6cc33b02
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: pCylinder1
-    400000: //RootNode
-    400002: pCylinder1
-    2100000: initialShadingGroup
-    2100002: pCylinder1Mat
-    2300000: pCylinder1
-    3300000: pCylinder1
-    4300000: pCylinder1
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: initialShadingGroup
-    second: {fileID: 2100000, guid: d20b84bf88f48a445a1ec3fbdda93720, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: pCylinder1Mat
-    second: {fileID: 2100000, guid: d20b84bf88f48a445a1ec3fbdda93720, type: 2}
+    100000: block_hell8
+    100002: //RootNode
+    400000: block_hell8
+    400002: //RootNode
+    2100000: BlockTex_lambert4SG1
+    2300000: block_hell8
+    3300000: block_hell8
+    4300000: block_hell8
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
@@ -53,7 +42,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.3
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importVisibility: 1

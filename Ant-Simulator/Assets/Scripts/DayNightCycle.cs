@@ -171,4 +171,26 @@ public class DayNightCycle : MonoBehaviour
             light.intensity = 1 - ((hours-12) / 12) - (minutes / 60 / 12);
         }
     }
+
+    public void ChangeSpeed(int speed)
+    {
+        switch (speed)
+        {
+            case 0:
+                Speed = SpeedMode.Stop;
+                break;
+            case 1:
+                Speed = SpeedMode.Normal;
+                break;
+            case 2:
+                Speed = SpeedMode.Fast;
+                break;
+            case 3:
+                Speed = SpeedMode.Faster;
+                break;
+            case 4:
+                Speed = SpeedMode.UberFast;
+                break;
+        }
+    }
 }

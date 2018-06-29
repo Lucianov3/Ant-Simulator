@@ -76,14 +76,12 @@ public class OverWorldCameraScript : MonoBehaviour
             CurrentDistanceCameraToFloor = Mathf.Min(CurrentDistanceCameraToFloor, MaxDistanceCameraToFloor);
         }
 
-        //Ray ray = new Ray(transform.position, new Vector3(0,-50,50));
-        //Debug.DrawRay(transform.position, new Vector3(0, -50, 50));
         Ray ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward));
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 50);
         RaycastHit hitInfo;
         Physics.Raycast(ray, out hitInfo, 50, LM);
         RaycastDistance = hitInfo.distance;
-        parent.transform.position = Vector3.Lerp(parent.transform.position, new Vector3(parent.transform.position.x, hitInfo.point.y, parent.transform.position.z), 0.1f);
+        //parent.transform.position = Vector3.Lerp(parent.transform.position, new Vector3(parent.transform.position.x, hitInfo.point.y, parent.transform.position.z), 0.1f);
 
         transform.localPosition = new Vector3(0, CurrentDistanceCameraToFloor, -CurrentDistanceCameraToFloor);
         parent.transform.Translate(cameraMovement.normalized*CameraMovementSpeed*transform.position.y*Time.unscaledDeltaTime);

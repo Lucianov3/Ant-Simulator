@@ -540,8 +540,6 @@ namespace AmeisenTypen
         {
             if (Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomDestination != null && !bla)
             {
-                pathfinding.Index = 0;
-                pathfinding.FindPath(pathfinding.start.position, Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomDestination[0].transform.position);
                 queenAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[0];
                 queenAgent.SetDestination(Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[0]);
                 GetComponent<KI_Rigina_formica>().Larvae.transform.position = Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[0];

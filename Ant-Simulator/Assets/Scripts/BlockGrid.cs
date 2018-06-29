@@ -74,7 +74,7 @@ public class BlockGrid : MonoBehaviour
 
     void Check(int checkX, int checkY, List<Node> list)
     {
-        if (checkX >= 1 && checkX < gridX - 1 && checkY >= 1 && checkY < gridY - 1)
+        if (checkX >= 1 && checkX < gridX && checkY >= 1 && checkY < gridY)
         {
             list.Add(blockGrid[checkX, checkY]);
         }

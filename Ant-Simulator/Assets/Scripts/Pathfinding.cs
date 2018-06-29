@@ -22,12 +22,15 @@ public class Pathfinding : MonoBehaviour
         spawnScript = GetComponent<SpawnBlockBuildNavMesh>();
         wall = GameObject.Find("Wall");
         surface = wall.GetComponent<NavMeshSurface>();
+        hasBuild = false;
     }
 
     private void Update()
     {
         if(spawnScript.RoomDestination[0] != null && !hasBuild)
         {
+            Index = 0;
+            FindPath(start.position, spawnScript.RoomDestination[0].transform.position);
             Index = 1;
             FindPath(start.position, spawnScript.RoomDestination[1].transform.position);
             Index = 2;

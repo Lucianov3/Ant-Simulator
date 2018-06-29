@@ -107,6 +107,7 @@ public class GameManager : MonoBehaviour
 
         Ant_Soldat.AddComponent<AmeisenTypen.Soldat>();
         ant.AddComponent<AmeisenTypen.Arbeiter>();
+        ant.GetComponent<AmeisenTypen.Arbeiter>().State = AmeisenTypen.StandardAmeise.CurrentState.NothingToDo;
         StartCoroutine(CheckForfood());
     }
 

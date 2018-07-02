@@ -20,7 +20,7 @@ public class KI_Rigina_formica : MonoBehaviour
 
     private IEnumerator Fruchtbarkeit()
     {
-        yield return new WaitForSeconds(720);
+        yield return new WaitForSeconds(10);
         if (GameManager.CurrentAnts < 100)
         {
             GameObject temp;

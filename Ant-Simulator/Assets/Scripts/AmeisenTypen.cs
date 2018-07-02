@@ -169,7 +169,6 @@ namespace AmeisenTypen
         private Pathfinding pathfinding;
 
         private GameObject Semen;
-        private Vector3 randomNothingToDo;
         private Vector3 eatZone;
         private Vector3 queenLocation;
         private Vector3 BedRoom1;
@@ -288,13 +287,14 @@ namespace AmeisenTypen
                     break;
 
                 case CurrentState.IsSleeping:
-                    GoTOBedRoom();
+                    GoTOBedRoom();//To Do
                     break;
 
                 case CurrentState.NothingToDo:
-                    randomNothingToDo = GameManager.NothingToDoV3[UnityEngine.Random.Range(0, GameManager.NothingToDoV3.Count - 1)];
-                    antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = randomNothingToDo;
-                    antAgent.SetDestination(randomNothingToDo);
+                    Vector3 temp = GameManager.NothingToDoV3[UnityEngine.Random.Range(0, GameManager.NothingToDoV3.Count - 1)];
+                    DistNothing = Vector3.Distance(transform.position, temp);
+                    antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = temp;
+                    antAgent.SetDestination(temp);
 
                     State = CurrentState.Waiting;
                     break;
@@ -308,12 +308,7 @@ namespace AmeisenTypen
                     break;
 
                 case CurrentState.Waiting:
-                    if (randomNothingToDo != null)
-                    {
-
-                     DistNothing = Vector3.Distance(transform.position, randomNothingToDo);
-                    }
-                    if (DistNothing < 5)
+                    if (DistNothing < 1)
                     {
                         State = CurrentState.NothingToDo;
                     }

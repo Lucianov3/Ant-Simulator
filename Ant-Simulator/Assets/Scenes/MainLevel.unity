@@ -150,7 +150,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4579869239115270, guid: e8199c18a228b3f4487892f461bddcf9, type: 2}
       propertyPath: m_RootOrder
-      value: 18
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 1130139093000148, guid: e8199c18a228b3f4487892f461bddcf9, type: 2}
       propertyPath: m_IsActive
@@ -393,7 +393,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4635685913953244, guid: 8ac6222fcda60e147b93377fa55cebb1, type: 2}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 114527756475250908, guid: 8ac6222fcda60e147b93377fa55cebb1,
         type: 2}
@@ -2355,16 +2355,12 @@ Transform:
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
-=======
->>>>>>> parent of 6b9d92f... Update: Ants
 --- !u!4 &914035038 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4769668570916062, guid: 318bf825db658814ea4daf937669732d,
     type: 2}
   m_PrefabInternal: {fileID: 547403373}
-<<<<<<< HEAD
 --- !u!1 &933853093
 GameObject:
   m_ObjectHideFlags: 0
@@ -2440,8 +2436,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 933853093}
 >>>>>>> caba4b947ca02aca32963a543f2bfc6ef0cb842d
-=======
->>>>>>> parent of 6b9d92f... Update: Ants
 --- !u!1001 &950678965
 Prefab:
   m_ObjectHideFlags: 0
@@ -2745,7 +2739,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4522919221177092, guid: e5611eb7ceb4a714792325f4ae3d162c, type: 2}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1878732273304300, guid: e5611eb7ceb4a714792325f4ae3d162c, type: 2}
       propertyPath: m_Name
@@ -2759,7 +2753,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e5611eb7ceb4a714792325f4ae3d162c, type: 2}
   m_IsPrefabParent: 0
-<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 --- !u!1 &1037993990
@@ -3148,8 +3141,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
-=======
->>>>>>> parent of 6b9d92f... Update: Ants
 --- !u!1 &1135934592
 GameObject:
   m_ObjectHideFlags: 0
@@ -3178,7 +3169,6 @@ Transform:
   m_Father: {fileID: 914035038}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
 --- !u!1 &1182601773
 GameObject:
   m_ObjectHideFlags: 0
@@ -3465,8 +3455,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1218494694}
 >>>>>>> caba4b947ca02aca32963a543f2bfc6ef0cb842d
-=======
->>>>>>> parent of 6b9d92f... Update: Ants
 --- !u!1 &1233366232
 GameObject:
   m_ObjectHideFlags: 0
@@ -4527,7 +4515,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4993636400127886, guid: 7e61a80fd0191074dbd2387cddcd0c7b, type: 2}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 114322554240801250, guid: 7e61a80fd0191074dbd2387cddcd0c7b,
         type: 2}
@@ -4860,7 +4848,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 1453722849, guid: 89f0137620f6af44b9ba852b4190e64e, type: 3}
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
   m_Name: 
   m_EditorClassIdentifier: 
@@ -5117,8 +5104,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2085181208}
-=======
->>>>>>> parent of 6b9d92f... Update: Ants
 --- !u!1 &2143686260
 GameObject:
   m_ObjectHideFlags: 0
@@ -5147,7 +5132,4 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
 >>>>>>> caba4b947ca02aca32963a543f2bfc6ef0cb842d
-=======
->>>>>>> parent of 6b9d92f... Update: Ants

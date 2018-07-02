@@ -128,6 +128,8 @@ public class Pathfinding : MonoBehaviour
         }
 
         CarveRoomByIndex();
+
+        blockGridScript.path = path;
     }
 
     void CarveRoomByIndex()

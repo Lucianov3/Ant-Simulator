@@ -84,4 +84,36 @@ public class BlockGrid : MonoBehaviour
             list.Add(blockGrid[checkX, checkY]);
         }
     }
+
+    public List<Node> path;
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position, new Vector3(GridSize.x, GridSize.y, 1));
+
+        if (blockGrid != null)
+        {
+            foreach (Node node in blockGrid)
+            {
+                if (node.canBuild)
+                {
+                    Gizmos.color = Color.green;
+                }
+                else
+                {
+                    Gizmos.color = Color.red;
+                }
+
+                if (path != null)
+                {
+                    if (path.Contains(node))
+                    {
+                        Gizmos.color = Color.yellow;
+                    }
+                }
+
+
+                Gizmos.DrawCube(node.Position, Vector3.one * (nodeDiameter -.1f));
+            }
+        }
+    }
 }

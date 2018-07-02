@@ -171,7 +171,7 @@ namespace AmeisenTypen
         private GameObject Semen;
         private Vector3 randomNothingToDo;
         private Vector3 eatZone;
-        public static Vector3 QueenLocation;
+        private Vector3 queenLocation;
         private Vector3 BedRoom1;
         private Vector3 BedRoom2;
         private Vector3 BedRoom3;
@@ -214,6 +214,7 @@ namespace AmeisenTypen
             State = CurrentState.Waiting;
             queen = GameObject.Find("Queen_New_Prefab");
             queen.AddComponent<AmeisenTypen.Königen>();
+            queenLocation = queen.gameObject.transform.position;
             Astar = GameObject.Find("A*");
             eatZone = Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[4];                                                     //Position ändern
             BedRoom1 = Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[1];
@@ -473,12 +474,12 @@ namespace AmeisenTypen
         {
             TheChosenOne = false;
             bool destinationset = false;
-            float dist = Vector3.Distance(gameObject.transform.position, QueenLocation);
+            float dist = Vector3.Distance(gameObject.transform.position, queenLocation);
 
             if (!destinationset)
             {
-                antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = QueenLocation;
-                antAgent.SetDestination(QueenLocation);
+                antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = queenLocation;
+                antAgent.SetDestination(queenLocation);
             }
             if (dist <= 2)
             {
@@ -552,7 +553,6 @@ namespace AmeisenTypen
             Dist = Vector3.Distance(transform.position, Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[0]);
             if (Dist <= 0.5)
             {
-                AmeisenTypen.Arbeiter.QueenLocation = transform.position;
                 queenAgent.isStopped = true;
             }
         }

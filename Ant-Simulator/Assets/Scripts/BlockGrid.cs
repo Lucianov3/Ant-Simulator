@@ -7,22 +7,30 @@ public class BlockGrid : MonoBehaviour
     public float NodeRadius;
     public Vector2 GridSize;
     public LayerMask NoTunnelMask;
-    Node[,] blockGrid;
-    float nodeDiameter;
-    int gridX;
-    int gridY;
+    public bool GridNeedsUpdate;
+    private Node[,] blockGrid;
+    private float nodeDiameter;
+    private Vector3 worldBottomLeft;
+    private int gridX;
+    private int gridY;
 
     private void Start()
     {
         nodeDiameter = NodeRadius * 2;
         gridX = Mathf.RoundToInt(GridSize.x / nodeDiameter);
         gridY = Mathf.RoundToInt(GridSize.y / nodeDiameter);
+        worldBottomLeft = transform.position - Vector3.right * GridSize.x / 2 - Vector3.up * GridSize.y / 2;
+        GridNeedsUpdate = true;
         CreateGrid();
     }
 
     private void Update()
     {
-        CreateGrid();
+        if (GridNeedsUpdate)
+        {
+            CreateGrid();
+        }
+       
     }
 
     public List<Node> GetNeighbours(Node node)
@@ -64,8 +72,20 @@ public class BlockGrid : MonoBehaviour
     void CreateGrid()
     {
         blockGrid = new Node[gridX, gridY];
-        Vector3 worldBottomLeft = transform.position - Vector3.right * GridSize.x / 2 - Vector3.up * GridSize.y / 2;
 
+        UpdateGrid();
+    }
+
+    void Check(int checkX, int checkY, List<Node> list)
+    {
+        if (checkX >= 1 && checkX < gridX && checkY >= 1 && checkY < gridY)
+        {
+            list.Add(blockGrid[checkX, checkY]);
+        }
+    }
+
+    void UpdateGrid()
+    {
         for (int x = 0; x < gridX; x++)
         {
             for (int y = 0; y < gridY; y++)
@@ -74,14 +94,6 @@ public class BlockGrid : MonoBehaviour
                 bool buildable = Physics.CheckSphere(worldPoint, .2f, NoTunnelMask);
                 blockGrid[x, y] = new Node(buildable, worldPoint, x, y);
             }
-        }
-    }
-
-    void Check(int checkX, int checkY, List<Node> list)
-    {
-        if (checkX >= 1 && checkX < gridX && checkY >= 1 && checkY < gridY)
-        {
-            list.Add(blockGrid[checkX, checkY]);
         }
     }
 }

@@ -5,15 +5,14 @@ using UnityEngine.AI;
 
 public class Pathfinding : MonoBehaviour
 {
-    BlockGrid blockGridScript;
     public Transform start;
     public LayerMask layer;
-    SpawnBlockBuildNavMesh spawnScript;
-    bool a = true;
     public int Index;
-    GameObject wall;
-    NavMeshSurface surface;
-    bool hasBuild;
+    private BlockGrid blockGridScript;
+    private SpawnBlockBuildNavMesh spawnScript;
+    private GameObject wall;
+    private NavMeshSurface surface;
+    private bool hasBuild;
 
 
     private void Start()
@@ -26,7 +25,7 @@ public class Pathfinding : MonoBehaviour
 
     private void Update()
     {
-        if(spawnScript.RoomDestination[0] != null)
+        if(spawnScript.RoomDestination[0] != null && !hasBuild)
         {
             Index = 0;
             FindPath(start.position, spawnScript.RoomDestination[0].transform.position);
@@ -133,43 +132,64 @@ public class Pathfinding : MonoBehaviour
 
     void CarveRoomByIndex()
     {
+        bool queenRoom = false;
+        bool room1 = false;
+        bool room2 = false;
+        bool room3 = false;
+        bool foodRoom = false;
+
         if (Index == 0)
         {
             while(GameObject.Find("Queen") != null)
             {
                 GameObject.Find("Queen").SetActive(false);
+                queenRoom = true;
             }
+            
         }
         else if (Index == 1)
         {
             while (GameObject.Find("1") != null)
             {
                 GameObject.Find("1").SetActive(false);
+                room1 = true;
             }
+            
         }
         else if (Index == 2)
         {
             while (GameObject.Find("2") != null)
             {
                 GameObject.Find("2").SetActive(false);
+                room2 = true;
             }
+           
         }
         else if (Index == 3)
         {
             while (GameObject.Find("3") != null)
             {
                 GameObject.Find("3").SetActive(false);
+                room3 = true;
             }
+            
         }
         else
         {
              while (GameObject.Find("Food") != null)
-              {
+             {
                  GameObject.Find("Food").SetActive(false);
+                foodRoom = true;
              }
+            
         }
 
         surface.BuildNavMesh();
+        if (room3 && room2 && room1 && foodRoom && queenRoom)
+        {
+            hasBuild = true;
+            blockGridScript.GridNeedsUpdate = false;
+        }
     }
 
 }

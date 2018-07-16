@@ -13,6 +13,7 @@ public class Pathfinding : MonoBehaviour
     public int Index;
     GameObject wall;
     NavMeshSurface surface;
+    bool hasBuild;
 
 
     private void Start()

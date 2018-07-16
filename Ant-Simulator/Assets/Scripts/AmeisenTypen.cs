@@ -538,10 +538,10 @@ namespace AmeisenTypen
 
         private void Update()
         {
-            if (Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomDestination != null && !bla)
+            if (Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition != null && !bla)
             {
-                queenAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[0];
                 queenAgent.SetDestination(Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[0]);
+                queenAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[0];
                 GetComponent<KI_Rigina_formica>().Larvae.transform.position = Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[0];
                 bla = true;
             }

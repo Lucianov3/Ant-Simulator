@@ -16,23 +16,18 @@ public class TeleportScript : MonoBehaviour
         UnderWorldPosition = transform.GetChild(1).position;
     }
 
-    private void Update()
-    {
-
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Ant") )
         {
-            if(other.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination.y > 29)
+            temp = other.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination;
+            if(other.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination.y > 29 && !IsOverworldCollider)
             {
                 temp = other.GetComponent<NavMeshAgent>().destination;
                 other.GetComponent<NavMeshAgent>().Warp(OverWorldPosition);
                 other.GetComponent<NavMeshAgent>().SetDestination(temp);
             }
-            temp = other.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination;
-            if (other.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination.y < 29 )
+            if (other.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination.y < 29 && IsOverworldCollider)
             {
                 other.GetComponent<NavMeshAgent>().Warp(UnderWorldPosition);
                 other.GetComponent<NavMeshAgent>().SetDestination(temp);

@@ -21,7 +21,6 @@ public class Pathfinding : MonoBehaviour
         spawnScript = GetComponent<SpawnBlockBuildNavMesh>();
         wall = GameObject.Find("Wall");
         surface = wall.GetComponent<NavMeshSurface>();
-        hasBuild = false;
     }
 
     private void Update()
@@ -129,7 +128,6 @@ public class Pathfinding : MonoBehaviour
 
         CarveRoomByIndex();
 
-        blockGridScript.path = path;
     }
 
     void CarveRoomByIndex()

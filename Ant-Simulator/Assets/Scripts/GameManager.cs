@@ -25,10 +25,10 @@ public class GameManager : MonoBehaviour
     public static List<GameObject> ArbeiterInstanzen = new List<GameObject>();
     public static List<GameObject> SoldatenInstanzen = new List<GameObject>();
 
-    public static List<Vector3> NothingToDoV3 = new List<Vector3>();                                                //Muss noch gefüllt werden!!!!!!!
+    public static List<Transform> NothingToDoV3 = new List<Transform>();                                                //Muss noch gefüllt werden!!!!!!!
 
     [SerializeField]
-    public Vector3[] filllist;
+    public Transform[] filllist;
 
     private GameObject ant;
     private GameObject Ant_Soldat;
@@ -37,19 +37,17 @@ public class GameManager : MonoBehaviour
     public static GameObject overworldCamera;
     public static GameObject underworldCamera;
 
-    private IEnumerator CheckForfood()
+    private void CheckForfood()
     {
-        yield return new WaitForSeconds(360);
         if (StorageFood == 0 && FoodScript.foodList.Count != 0)
         {
             GameObject temp;
             do
             {
                 temp = ArbeiterInstanzen[Random.Range(0, ArbeiterInstanzen.Count - 1)];
-            } while (temp.GetComponent<AmeisenTypen.Arbeiter>().State != AmeisenTypen.StandardAmeise.CurrentState.NothingToDo);
+            } while (temp.GetComponent<AmeisenTypen.Arbeiter>().State == AmeisenTypen.StandardAmeise.CurrentState.NothingToDo);
             temp.GetComponent<AmeisenTypen.Arbeiter>().getFood = true;
         }
-        StartCoroutine(CheckForfood());
     }
 
     private void FixedUpdate()
@@ -61,7 +59,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < filllist.Length; i++)
         {
-            Vector3 temp = filllist[i];
+            Transform temp = filllist[i];
             NothingToDoV3.Add(temp);
         }
         StreamReader readerM = new StreamReader(Application.dataPath + @"\TextDateien\NamenM.txt");
@@ -89,15 +87,15 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 0; i <= Mathf.RoundToInt((MaxAnts * 80) / 100); i++)
             {
-                GameObject temp = Instantiate(ant, antPool.transform);
-                temp.transform.position = antPool.transform.position;
+                GameObject temp = Instantiate(ant, antPool.transform.position, Quaternion.identity) as GameObject;
+
                 Ants_Arbeiter.Enqueue(temp);
                 temp.gameObject.SetActive(false);
                 temp.name = "arbeiter" + i;
             }
             for (int i = 0; i <= Mathf.RoundToInt((MaxAnts * 20) / 100); i++)
             {
-                GameObject temp = Instantiate(Ant_Soldat, antPool.transform);
+                GameObject temp = Instantiate(Ant_Soldat, antPool.transform.position, Quaternion.identity) as GameObject;
                 temp.transform.position = antPool.transform.position;
                 Ants_Soldaten.Enqueue(temp);
                 temp.gameObject.SetActive(false);
@@ -108,7 +106,7 @@ public class GameManager : MonoBehaviour
         Ant_Soldat.AddComponent<AmeisenTypen.Soldat>();
         ant.AddComponent<AmeisenTypen.Arbeiter>();
         ant.GetComponent<AmeisenTypen.Arbeiter>().State = AmeisenTypen.StandardAmeise.CurrentState.NothingToDo;
-        StartCoroutine(CheckForfood());
+        InvokeRepeating("CheckForfood", 360, 360);
     }
 
     public static void SwitchToUnderWorldCamera()

@@ -15,12 +15,11 @@ public class KI_Rigina_formica : MonoBehaviour
             LarvaeQ.Enqueue(Larvae.transform.GetChild(i).gameObject);
             Larvae.transform.GetChild(i).gameObject.SetActive(false);
         }
-        StartCoroutine(Fruchtbarkeit());
+        InvokeRepeating("Fruchtbarkeit", 20, 720);
     }
 
-    private IEnumerator Fruchtbarkeit()
+    private void Fruchtbarkeit()
     {
-        yield return new WaitForSeconds(300);
         if (GameManager.CurrentAnts < 100)
         {
             GameObject temp;
@@ -31,8 +30,6 @@ public class KI_Rigina_formica : MonoBehaviour
             } while (temp.GetComponent<AmeisenTypen.Arbeiter>().Gender != "Male" && temp.GetComponent<AmeisenTypen.Arbeiter>().Energy != 0);
             temp.GetComponent<AmeisenTypen.Arbeiter>().TheChosenOne = true;
         }
-
-        StartCoroutine(Fruchtbarkeit());
     }
 
     public void SpawnLarva()

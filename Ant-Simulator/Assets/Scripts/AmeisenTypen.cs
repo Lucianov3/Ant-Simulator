@@ -128,12 +128,12 @@ namespace AmeisenTypen
             yield return new WaitForSeconds(10);
             Energy = 100;
             antAgent.isStopped = false;
+            destinationSetGoToBed = false;
             State = CurrentState.NothingToDo;
         }
 
-        public IEnumerator HungerC()
+        public void HungerC()
         {
-            yield return new WaitForSeconds(60);
             if (Hunger != 0)
             {
                 Hunger -= 5;
@@ -150,14 +150,11 @@ namespace AmeisenTypen
             {
                 Health -= 10;
             }
-            StartCoroutine(HungerC());
         }
 
-        public IEnumerator ToAge()
+        public void ToAge()
         {
-            yield return new WaitForSeconds(1440);
             Age++;
-            StartCoroutine(ToAge());
         }
 
         private NavMeshAgent antAgent;
@@ -177,9 +174,14 @@ namespace AmeisenTypen
         private Vector3 BedRoom3;
 
         public float hunger;
+        private int rBedRoom;
         private bool thirsty;
         public bool TheChosenOne { get; set; }
         public bool getFood { get; set; }
+        private bool destinationSetGetFood;
+        private bool destinationSetGetFood2;
+        private bool destinationsetFertilizes;
+        private bool destinationSetGoToBed;
 
         public CurrentState State { get; set; }
 
@@ -213,9 +215,9 @@ namespace AmeisenTypen
             antAgent = gameObject.GetComponent<NavMeshAgent>();
             State = CurrentState.Waiting;
             queen = GameObject.Find("Queen_New_Prefab");
-            queen.AddComponent<AmeisenTypen.Königen>();
+            queen.AddComponent<AmeisenTypen.Queen>();
             Astar = GameObject.Find("A*");
-            while(Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[4] == null)
+            while (Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[4] == null)
             {
                 eatZone = Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[4];                                                     //Position ändern
                 BedRoom1 = Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[1];
@@ -226,8 +228,13 @@ namespace AmeisenTypen
             pathfinding = Astar.GetComponent<Pathfinding>();
             Animator = GetComponent<Animator>();
             Agent = GetComponent<NavMeshAgent>();
-            StartCoroutine(ToAge());
-            StartCoroutine(HungerC());
+            InvokeRepeating("ToAge", 1440, 1440);
+            InvokeRepeating("HungerC", 60, 60);
+        }
+
+        private void OnEnable()
+        {
+            State = CurrentState.NothingToDo;
         }
 
         private void Update()
@@ -235,9 +242,7 @@ namespace AmeisenTypen
             hunger = Hunger;
             energy = Energy;
             State1 = State.ToString();
-            if (GameManager.CurrentAnts >= 30 && !TheChosenOne)
-            {
-            }
+
             if (Thirst < 0)
             {
                 Thirst = 0;
@@ -249,6 +254,10 @@ namespace AmeisenTypen
             if (Energy < 0)
             {
                 Energy = 0;
+            }
+            if (Health < 0)
+            {
+                Health = 0;
             }
             if (Age >= DeathMark || Health <= 0)
             {
@@ -262,7 +271,7 @@ namespace AmeisenTypen
             {
                 State = CurrentState.IsEating;
             }
-            if (Thirst <= 30 && !TheChosenOne && Energy != 0 && State != CurrentState.Dead&& State != CurrentState.Waiting)
+            if (Thirst <= 30 && !TheChosenOne && Energy != 0 && State != CurrentState.Dead)
             {
                 State = CurrentState.IsDrinking;
             }
@@ -294,7 +303,7 @@ namespace AmeisenTypen
                     break;
 
                 case CurrentState.NothingToDo:
-                    randomThingToDo = GameManager.NothingToDoV3[UnityEngine.Random.Range(0,GameManager.NothingToDoV3.Count-1)];
+                    randomThingToDo = GameManager.NothingToDoV3[UnityEngine.Random.Range(0, GameManager.NothingToDoV3.Count - 1)].position;
                     antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = randomThingToDo;
                     antAgent.SetDestination(randomThingToDo);
 
@@ -310,7 +319,7 @@ namespace AmeisenTypen
                     break;
 
                 case CurrentState.Waiting:
-                    if(randomThingToDo != null)
+                    if (randomThingToDo != null)
                     {
                         DistNothing = Vector3.Distance(transform.position, randomThingToDo);
                     }
@@ -328,17 +337,23 @@ namespace AmeisenTypen
 
         private void GoTOBedRoom()
         {
-            int randomN = 0;
-            randomN = UnityEngine.Random.Range(1, 4);
+            if (!destinationSetGoToBed)
+            {
+                rBedRoom = UnityEngine.Random.Range(1, 4);
+            }
 
-            switch (randomN)
+            switch (rBedRoom)
             {
                 case 1:
                     if (GameManager.BedCounter < 33)
                     {
                         float dist = Vector2.Distance(transform.position, BedRoom1);
                         antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = BedRoom1;
-                        antAgent.SetDestination(BedRoom1);
+                        if (!destinationSetGoToBed)
+                        {
+                            antAgent.SetDestination(BedRoom1);
+                            destinationSetGoToBed = true;
+                        }
                         if (dist <= 1.2)
                         {
                             antAgent.isStopped = true;
@@ -356,7 +371,11 @@ namespace AmeisenTypen
                     {
                         float dist = Vector2.Distance(transform.position, BedRoom2);
                         antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = BedRoom2;
-                        antAgent.SetDestination(BedRoom2);
+                        if (!destinationSetGoToBed)
+                        {
+                            antAgent.SetDestination(BedRoom2);
+                            destinationSetGoToBed = true;
+                        }
                         if (dist <= 1.2)
                         {
                             antAgent.isStopped = true;
@@ -374,7 +393,11 @@ namespace AmeisenTypen
                     {
                         float dist = Vector2.Distance(transform.position, BedRoom3);
                         antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = BedRoom3;
-                        antAgent.SetDestination(BedRoom3);
+                        if (!destinationSetGoToBed)
+                        {
+                            antAgent.SetDestination(BedRoom3);
+                            destinationSetGoToBed = true;
+                        }
                         if (dist <= 1.2)
                         {
                             antAgent.isStopped = true;
@@ -394,27 +417,26 @@ namespace AmeisenTypen
 
         private void GetFood()
         {
-            Semen = FoodScript.foodList[UnityEngine.Random.Range(0, FoodScript.foodList.Count - 1)];
-            bool destinationSet = false;
-            Semen = GameObject.Find("Semen");
+            if (!destinationSetGetFood)
+            {
+                Semen = FoodScript.foodList[UnityEngine.Random.Range(0, FoodScript.foodList.Count - 1)];
+                antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = Semen.transform.position;
+                antAgent.SetDestination(Semen.transform.position);
+                destinationSetGetFood = true;
+            }
+
             float dist = Vector3.Distance(gameObject.transform.position, Semen.transform.position);
             float distToEatzone = Vector3.Distance(transform.position, eatZone);
 
-            if (!destinationSet)
-            {
-                antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = Semen.transform.position;
-                antAgent.SetDestination(Semen.transform.position);
-                destinationSet = true;
-            }
-
-            if (dist <= 1)
+            if (dist <= 1 && !destinationSetGetFood2)
             {
                 Semen.transform.parent = gameObject.transform;
                 Semen.transform.position = transform.position + new Vector3(0, 0.3f, 0);
                 antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = eatZone;
                 antAgent.SetDestination(eatZone);
+                destinationSetGetFood2 = true;
             }
-            if (distToEatzone <= 1)
+            if (distToEatzone <= 1 && Semen.transform.parent != null)
             {
                 Semen.transform.parent = null;
                 Semen.transform.position = eatZone + new Vector3(1, 0, 1);
@@ -422,6 +444,9 @@ namespace AmeisenTypen
                 GameManager.StorageFood += 1;
                 if (GameManager.StorageFood <= 30 && FoodScript.foodList.Count > 0 && State != CurrentState.fertilizes_the_queen)
                 {
+                    getFood = false;
+                    destinationSetGetFood = false;
+                    destinationSetGetFood2 = false;
                     GetFood();
                 }
                 else
@@ -474,19 +499,20 @@ namespace AmeisenTypen
         private void Fertilizes_the_queen()
         {
             TheChosenOne = false;
-            bool destinationset = false;
             float dist = Vector3.Distance(gameObject.transform.position, QueenLocation);
 
-            if (!destinationset)
+            if (!destinationsetFertilizes)
             {
                 antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = QueenLocation;
                 antAgent.SetDestination(QueenLocation);
+                destinationsetFertilizes = true;
             }
             if (dist <= 2)
             {
+                destinationsetFertilizes = false;
                 queen.GetComponent<KI_Rigina_formica>().SpawnLarva();
                 antAgent.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination = transform.position;
-                antAgent.SetDestination(transform.position);
+                //antAgent.SetDestination(transform.position);
                 Energy -= 20;
                 State = CurrentState.NothingToDo;
             }
@@ -520,26 +546,20 @@ namespace AmeisenTypen
         private bool thirsty;
     }
 
-    public class Königen : StandardAmeise
+    public class Queen : StandardAmeise
     {
         private NavMeshAgent queenAgent;
         private GameObject Astar;
         private Pathfinding pathfinding;
         private float Dist;
 
-
-        bool bla;
+        private bool bla;
 
         private void Start()
         {
             Astar = GameObject.Find("A*");
             pathfinding = Astar.GetComponent<Pathfinding>();
             queenAgent = GetComponent<NavMeshAgent>();
-        }
-
-        private void Awake()
-        {
-            
         }
 
         private void Update()
@@ -552,7 +572,7 @@ namespace AmeisenTypen
                 bla = true;
             }
             Dist = Vector3.Distance(transform.position, Astar.GetComponent<SpawnBlockBuildNavMesh>().RoomPosition[0]);
-            if (Dist <= 0.5)
+            if (Dist <= 1)
             {
                 GetComponent<KI_Rigina_formica>().Larvae.transform.position = transform.position;
                 Arbeiter.QueenLocation = transform.position;

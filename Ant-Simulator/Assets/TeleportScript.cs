@@ -8,7 +8,7 @@ public class TeleportScript : MonoBehaviour
     public Vector3 OverWorldPosition;
     public Vector3 UnderWorldPosition;
     public bool IsOverworldCollider;
-    Vector3 temp;
+    private Vector3 temp;
 
     private void Start()
     {
@@ -18,10 +18,10 @@ public class TeleportScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Ant") )
+        if (other.CompareTag("Ant"))
         {
             temp = other.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination;
-            if(other.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination.y > 29 && !IsOverworldCollider)
+            if (other.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination.y > 29 && !IsOverworldCollider)
             {
                 temp = other.GetComponent<NavMeshAgent>().destination;
                 other.GetComponent<NavMeshAgent>().Warp(OverWorldPosition);

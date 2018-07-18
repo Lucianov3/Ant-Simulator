@@ -7,22 +7,30 @@ public class BlockGrid : MonoBehaviour
     public float NodeRadius;
     public Vector2 GridSize;
     public LayerMask NoTunnelMask;
-    Node[,] blockGrid;
-    float nodeDiameter;
-    int gridX;
-    int gridY;
+    public bool GridNeedsUpdate;
+    private Node[,] blockGrid;
+    private float nodeDiameter;
+    private Vector3 worldBottomLeft;
+    private int gridX;
+    private int gridY;
 
     private void Start()
     {
         nodeDiameter = NodeRadius * 2;
         gridX = Mathf.RoundToInt(GridSize.x / nodeDiameter);
         gridY = Mathf.RoundToInt(GridSize.y / nodeDiameter);
+        worldBottomLeft = transform.position - Vector3.right * GridSize.x / 2 - Vector3.up * GridSize.y / 2;
+        GridNeedsUpdate = true;
         CreateGrid();
     }
 
     private void Update()
     {
-        CreateGrid();
+        if (GridNeedsUpdate)
+        {
+            CreateGrid();
+        }
+       
     }
 
     public List<Node> GetNeighbours(Node node)
@@ -64,17 +72,8 @@ public class BlockGrid : MonoBehaviour
     void CreateGrid()
     {
         blockGrid = new Node[gridX, gridY];
-        Vector3 worldBottomLeft = transform.position - Vector3.right * GridSize.x / 2 - Vector3.up * GridSize.y / 2;
 
-        for (int x = 0; x < gridX; x++)
-        {
-            for (int y = 0; y < gridY; y++)
-            {
-                Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + NodeRadius) + Vector3.up * (y * nodeDiameter + NodeRadius);
-                bool buildable = Physics.CheckSphere(worldPoint, .2f, NoTunnelMask);
-                blockGrid[x, y] = new Node(buildable, worldPoint, x, y);
-            }
-        }
+        UpdateGrid();
     }
 
     void Check(int checkX, int checkY, List<Node> list)
@@ -85,34 +84,15 @@ public class BlockGrid : MonoBehaviour
         }
     }
 
-    public List<Node> path;
-    private void OnDrawGizmos()
+    void UpdateGrid()
     {
-        Gizmos.DrawWireCube(transform.position, new Vector3(GridSize.x, GridSize.y, 1));
-
-        if (blockGrid != null)
+        for (int x = 0; x < gridX; x++)
         {
-            foreach (Node node in blockGrid)
+            for (int y = 0; y < gridY; y++)
             {
-                if (node.canBuild)
-                {
-                    Gizmos.color = Color.green;
-                }
-                else
-                {
-                    Gizmos.color = Color.red;
-                }
-
-                if (path != null)
-                {
-                    if (path.Contains(node))
-                    {
-                        Gizmos.color = Color.yellow;
-                    }
-                }
-
-
-                Gizmos.DrawCube(node.Position, Vector3.one * (nodeDiameter -.1f));
+                Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + NodeRadius) + Vector3.up * (y * nodeDiameter + NodeRadius);
+                bool buildable = Physics.CheckSphere(worldPoint, .2f, NoTunnelMask);
+                blockGrid[x, y] = new Node(buildable, worldPoint, x, y);
             }
         }
     }

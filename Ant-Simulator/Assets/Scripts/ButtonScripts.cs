@@ -68,4 +68,10 @@ public class ButtonScripts : MonoBehaviour
     {
         transform.parent.parent.GetComponent<Animator>().SetTrigger("CloseInGameMenuTrigger");
     }
+
+    public void CloseButton()
+    {
+        Destroy(transform.parent.gameObject);
+        StatScript.statScreenIsActive = false;
+    }
 }

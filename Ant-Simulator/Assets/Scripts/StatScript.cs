@@ -26,7 +26,6 @@ public class StatScript : MonoBehaviour
 
     public static bool statScreenIsActive = false;
 
-
     private void Start()
     {
         healthBar = new StatBar(healthBarValue, healthBarMaxValue, transform.GetChild(0).GetComponent<RectTransform>());
@@ -36,15 +35,15 @@ public class StatScript : MonoBehaviour
         antName = transform.GetChild(4).GetComponent<TextMeshProUGUI>();
         antGender = transform.GetChild(5).GetComponent<Image>();
         antState = transform.GetChild(6).GetComponent<TextMeshProUGUI>();
-        
     }
+
     private void Update()
     {
         UpdateAllBars();
         UpdateName();
         UpdateGender();
-
     }
+
     private void UpdateAllBars()
     {
         healthBar.UpdateBar(ant.ReturnStat("Health"));
@@ -60,7 +59,7 @@ public class StatScript : MonoBehaviour
 
     private void UpdateGender()
     {
-        if(ant.Gender == "Male")
+        if (ant.Gender == "Male")
         {
             antGender.sprite = genderSprites[0];
         }
@@ -74,6 +73,11 @@ public class StatScript : MonoBehaviour
     {
         //antState.text = ant.State;
     }
+
+    public void CloseButton()
+    {
+        Destroy(gameObject);
+    }
 }
 
 public class StatBar
@@ -82,15 +86,16 @@ public class StatBar
     public float MaxValue;
     public RectTransform Transform;
 
-    public StatBar(float value,float maxValue,RectTransform transform)
+    public StatBar(float value, float maxValue, RectTransform transform)
     {
         Value = value;
         MaxValue = maxValue;
         Transform = transform;
     }
+
     public void UpdateBar(float newValue)
     {
         Value = newValue;
-        Transform.localScale = new Vector3(Value,Transform.localScale.y,Transform.localScale.z);
+        Transform.localScale = new Vector3(Value, Transform.localScale.y, Transform.localScale.z);
     }
 }

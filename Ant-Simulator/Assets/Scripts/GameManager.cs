@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     public static List<string> NameListM = new List<string>();
     public static List<GameObject> ArbeiterInstanzen = new List<GameObject>();
     public static List<GameObject> SoldatenInstanzen = new List<GameObject>();
+    private int checkForFoodRate;
+    private bool isIncreaseTheCheckForfoodRate;
 
     public static List<Transform> NothingToDoV3 = new List<Transform>();                                                //Muss noch gefüllt werden!!!!!!!
 
@@ -39,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     private void CheckForfood()
     {
-        if (StorageFood == 0 && FoodScript.foodList.Count != 0)
+        if (FoodScript.foodList.Count != 0)
         {
             GameObject temp;
             do
@@ -52,6 +54,19 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (CurrentAnts >= 15 && !isIncreaseTheCheckForfoodRate)
+        {
+            CancelInvoke();
+            InvokeRepeating("CheckForfood", 0, 90);
+            isIncreaseTheCheckForfoodRate = true;
+        }
+        else if (CurrentAnts < 15 && isIncreaseTheCheckForfoodRate)
+        {
+            CancelInvoke();
+            InvokeRepeating("CheckForfood", 0, 180);
+            isIncreaseTheCheckForfoodRate = false;
+        }
+
         CurrentAnts2 = CurrentAnts;
     }
 
@@ -62,8 +77,9 @@ public class GameManager : MonoBehaviour
             Transform temp = filllist[i];
             NothingToDoV3.Add(temp);
         }
-        StreamReader readerM = new StreamReader(Application.dataPath + @"\TextDateien\NamenM.txt");
-        StreamReader readerW = new StreamReader(Application.dataPath + @"\TextDateien\NamenW.txt");
+
+        StreamReader readerM = new StreamReader(Application.streamingAssetsPath + @"\NamenM.txt");
+        StreamReader readerW = new StreamReader(Application.streamingAssetsPath + @"\NamenW.txt");
 
         while ((fileline = readerM.ReadLine()) != null)
         {
@@ -106,7 +122,8 @@ public class GameManager : MonoBehaviour
         Ant_Soldat.AddComponent<AmeisenTypen.Soldat>();
         ant.AddComponent<AmeisenTypen.Arbeiter>();
         ant.GetComponent<AmeisenTypen.Arbeiter>().State = AmeisenTypen.StandardAmeise.CurrentState.NothingToDo;
-        InvokeRepeating("CheckForfood", 360, 360);
+
+        InvokeRepeating("CheckForfood", 60, 180);
     }
 
     public static void SwitchToUnderWorldCamera()

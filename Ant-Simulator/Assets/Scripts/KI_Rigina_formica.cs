@@ -5,6 +5,7 @@ using UnityEngine;
 public class KI_Rigina_formica : MonoBehaviour
 {
     public GameObject Larvae;
+    private bool isTheSpawnRateIncreased;
 
     public static Queue<GameObject> LarvaeQ = new Queue<GameObject>();
 
@@ -15,7 +16,23 @@ public class KI_Rigina_formica : MonoBehaviour
             LarvaeQ.Enqueue(Larvae.transform.GetChild(i).gameObject);
             Larvae.transform.GetChild(i).gameObject.SetActive(false);
         }
-        InvokeRepeating("Fruchtbarkeit", 20, 720);
+        InvokeRepeating("Fruchtbarkeit", 20, 180);
+    }
+
+    private void FixedUpdate()
+    {
+        if (GameManager.CurrentAnts >= 15 && !isTheSpawnRateIncreased)
+        {
+            CancelInvoke();
+            InvokeRepeating("Fruchtbarkeit", 0, 60);
+            isTheSpawnRateIncreased = true;
+        }
+        else if (GameManager.CurrentAnts < 15 && isTheSpawnRateIncreased)
+        {
+            CancelInvoke();
+            InvokeRepeating("Fruchtbarkeit", 0, 180);
+            isTheSpawnRateIncreased = false;
+        }
     }
 
     private void Fruchtbarkeit()
@@ -29,6 +46,7 @@ public class KI_Rigina_formica : MonoBehaviour
                 temp = GameManager.ArbeiterInstanzen[i];
             } while (temp.GetComponent<AmeisenTypen.Arbeiter>().Gender != "Male" && temp.GetComponent<AmeisenTypen.Arbeiter>().Energy != 0);
             temp.GetComponent<AmeisenTypen.Arbeiter>().TheChosenOne = true;
+            Debug.Log("Fertilizes");
         }
     }
 

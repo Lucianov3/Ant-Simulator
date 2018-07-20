@@ -12,8 +12,12 @@ public class Pathfinding : MonoBehaviour
     private SpawnBlockBuildNavMesh spawnScript;
     private GameObject wall;
     private NavMeshSurface surface;
-    private bool hasBuild;
-
+    public bool HasBuild;
+    private bool queenRoom;
+    private bool room1;
+    private bool room2;
+    private bool room3;
+    private bool foodRoom;
 
     private void Start()
     {
@@ -25,7 +29,7 @@ public class Pathfinding : MonoBehaviour
 
     private void Update()
     {
-        if(spawnScript.RoomDestination[0] != null && !hasBuild)
+        if (spawnScript.RoomDestination[0] != null && !HasBuild)
         {
             Index = 0;
             FindPath(start.position, spawnScript.RoomDestination[0].transform.position);
@@ -38,9 +42,7 @@ public class Pathfinding : MonoBehaviour
             Index = 4;
             FindPath(start.position, spawnScript.RoomDestination[4].transform.position);
         }
-       
     }
-
 
     public void FindPath(Vector3 start, Vector3 destination)
     {
@@ -65,7 +67,7 @@ public class Pathfinding : MonoBehaviour
             open.Remove(current);
             closed.Add(current);
 
-            if(current == Destination)
+            if (current == Destination)
             {
                 GetPath(Start, Destination);
                 return;
@@ -91,12 +93,10 @@ public class Pathfinding : MonoBehaviour
                     }
                 }
             }
-
-
         }
     }
 
-    int GetDistance(Node nodeA, Node nodeB)
+    private int GetDistance(Node nodeA, Node nodeB)
     {
         int distanceX = Mathf.Abs(nodeA.x - nodeB.x);
         int distanceY = Mathf.Abs(nodeA.y - nodeB.y);
@@ -104,7 +104,7 @@ public class Pathfinding : MonoBehaviour
         return (distanceX * 10) + (distanceY * 10);
     }
 
-    void GetPath(Node start, Node end)
+    private void GetPath(Node start, Node end)
     {
         List<Node> path = new List<Node>();
         Node currentNode = end;
@@ -123,29 +123,20 @@ public class Pathfinding : MonoBehaviour
             {
                 hit.transform.gameObject.SetActive(false);
             }
-
         }
 
         CarveRoomByIndex();
-
     }
 
-    void CarveRoomByIndex()
+    private void CarveRoomByIndex()
     {
-        bool queenRoom = false;
-        bool room1 = false;
-        bool room2 = false;
-        bool room3 = false;
-        bool foodRoom = false;
-
         if (Index == 0)
         {
-            while(GameObject.Find("Queen") != null)
+            while (GameObject.Find("Queen") != null)
             {
                 GameObject.Find("Queen").SetActive(false);
                 queenRoom = true;
             }
-            
         }
         else if (Index == 1)
         {
@@ -154,7 +145,6 @@ public class Pathfinding : MonoBehaviour
                 GameObject.Find("1").SetActive(false);
                 room1 = true;
             }
-            
         }
         else if (Index == 2)
         {
@@ -163,7 +153,6 @@ public class Pathfinding : MonoBehaviour
                 GameObject.Find("2").SetActive(false);
                 room2 = true;
             }
-           
         }
         else if (Index == 3)
         {
@@ -172,24 +161,21 @@ public class Pathfinding : MonoBehaviour
                 GameObject.Find("3").SetActive(false);
                 room3 = true;
             }
-            
         }
         else
         {
-             while (GameObject.Find("Food") != null)
-             {
-                 GameObject.Find("Food").SetActive(false);
+            while (GameObject.Find("Food") != null)
+            {
+                GameObject.Find("Food").SetActive(false);
                 foodRoom = true;
-             }
-            
+            }
         }
 
         surface.BuildNavMesh();
         if (room3 && room2 && room1 && foodRoom && queenRoom)
         {
-            hasBuild = true;
+            HasBuild = true;
             blockGridScript.GridNeedsUpdate = false;
         }
     }
-
 }

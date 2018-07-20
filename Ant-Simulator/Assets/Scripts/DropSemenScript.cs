@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class DropSemenScript : MonoBehaviour
 {
-    bool drop = true;
-    [SerializeField] float dropSpeed;
-    [SerializeField] LayerMask layerMask;
-    Vector3 targetPosition;
-    
+    private bool drop = true;
+    [SerializeField] private float dropSpeed;
+    [SerializeField] private LayerMask layerMask;
+    private Vector3 targetPosition;
+    private RaycastHit hitInfo;
 
     private void Start()
     {
         Ray tempRay = new Ray(transform.position, Vector3.down);
-        RaycastHit hitInfo;
-        Physics.Raycast(tempRay,out hitInfo, Mathf.Infinity, layerMask);
+        Physics.Raycast(tempRay, out hitInfo, Mathf.Infinity, layerMask);
         targetPosition = hitInfo.point;
     }
 
@@ -22,7 +21,11 @@ public class DropSemenScript : MonoBehaviour
     {
         if (drop)
         {
-            transform.position = Vector3.Lerp(transform.position, targetPosition,dropSpeed);
+            transform.position = Vector3.Lerp(transform.position, targetPosition, dropSpeed);
+            if (Vector3.Distance(hitInfo.point, transform.position) <= 1)
+            {
+                drop = false;
+            }
         }
     }
 }

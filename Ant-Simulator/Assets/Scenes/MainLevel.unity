@@ -360,7 +360,36 @@ Prefab:
       propertyPath: m_Name
       value: Soldier
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 1236583725845372, guid: 0e65ad1688ffad34cbf81c9d8d73ffef, type: 2}
+      propertyPath: m_Name
+      value: initialShadingGroup_polySurface10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671984577318216, guid: 0e65ad1688ffad34cbf81c9d8d73ffef, type: 2}
+      propertyPath: m_Name
+      value: initialShadingGroup_polySurface11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1701463901414162, guid: 0e65ad1688ffad34cbf81c9d8d73ffef, type: 2}
+      propertyPath: m_Name
+      value: initialShadingGroup_polySurface12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461163931901534, guid: 0e65ad1688ffad34cbf81c9d8d73ffef, type: 2}
+      propertyPath: m_Name
+      value: initialShadingGroup_polySurface13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400710900255430, guid: 0e65ad1688ffad34cbf81c9d8d73ffef, type: 2}
+      propertyPath: m_Name
+      value: initialShadingGroup_polySurface8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1993152134649414, guid: 0e65ad1688ffad34cbf81c9d8d73ffef, type: 2}
+      propertyPath: m_Name
+      value: initialShadingGroup_polySurface9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352944698228788, guid: 0e65ad1688ffad34cbf81c9d8d73ffef, type: 2}
+      propertyPath: m_Name
+      value: initialShadingGroup_pPrism2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 95185193640850830, guid: 0e65ad1688ffad34cbf81c9d8d73ffef, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0e65ad1688ffad34cbf81c9d8d73ffef, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &270207677
@@ -573,6 +602,29 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 343155978}
+--- !u!1 &356946194 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1729482663184916, guid: 0e65ad1688ffad34cbf81c9d8d73ffef,
+    type: 2}
+  m_PrefabInternal: {fileID: 54636988}
+--- !u!95 &356946195
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 356946194}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: be3215aea8c7a1843acde018055a1fc0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &398081234
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,6 +997,16 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114082471165024400, guid: 318bf825db658814ea4daf937669732d,
+        type: 2}
+      propertyPath: NameListMText
+      value: 
+      objectReference: {fileID: 4900000, guid: ceca3618e3b75ca459a409473304ad64, type: 3}
+    - target: {fileID: 114082471165024400, guid: 318bf825db658814ea4daf937669732d,
+        type: 2}
+      propertyPath: NameListWText
+      value: 
+      objectReference: {fileID: 4900000, guid: 04d9012bfd99ef546bedb0a53bae36dd, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 318bf825db658814ea4daf937669732d, type: 2}
   m_IsPrefabParent: 0
@@ -2034,6 +2096,34 @@ Prefab:
     - target: {fileID: 1677450662147332, guid: c9b097a78aebec9479a0cd6045cee49c, type: 2}
       propertyPath: m_Name
       value: Worker
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144994106451162, guid: c9b097a78aebec9479a0cd6045cee49c, type: 2}
+      propertyPath: m_Name
+      value: initialShadingGroup_polySurface10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1806735249537370, guid: c9b097a78aebec9479a0cd6045cee49c, type: 2}
+      propertyPath: m_Name
+      value: initialShadingGroup_polySurface11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742043851145760, guid: c9b097a78aebec9479a0cd6045cee49c, type: 2}
+      propertyPath: m_Name
+      value: initialShadingGroup_polySurface12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071266597385656, guid: c9b097a78aebec9479a0cd6045cee49c, type: 2}
+      propertyPath: m_Name
+      value: initialShadingGroup_polySurface13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1395951940307760, guid: c9b097a78aebec9479a0cd6045cee49c, type: 2}
+      propertyPath: m_Name
+      value: initialShadingGroup_polySurface8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739498360199740, guid: c9b097a78aebec9479a0cd6045cee49c, type: 2}
+      propertyPath: m_Name
+      value: initialShadingGroup_polySurface9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1187851264108012, guid: c9b097a78aebec9479a0cd6045cee49c, type: 2}
+      propertyPath: m_Name
+      value: initialShadingGroup_pPrism2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c9b097a78aebec9479a0cd6045cee49c, type: 2}

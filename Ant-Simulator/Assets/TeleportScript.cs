@@ -23,7 +23,6 @@ public class TeleportScript : MonoBehaviour
             temp = other.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination;
             if (other.GetComponent<AmeisenTypen.StandardAmeise>().tempDestination.y > 29 && !IsOverworldCollider)
             {
-                temp = other.GetComponent<NavMeshAgent>().destination;
                 other.GetComponent<NavMeshAgent>().Warp(OverWorldPosition);
                 other.GetComponent<NavMeshAgent>().SetDestination(temp);
             }
